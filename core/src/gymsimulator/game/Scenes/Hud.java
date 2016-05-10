@@ -46,7 +46,7 @@ public class Hud {
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("WOLRD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         gymLabel  = new Label("GYM SIMULATOR", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(gymLabel).expandX().padTop(10);
