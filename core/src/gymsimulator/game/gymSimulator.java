@@ -4,7 +4,7 @@ package gymsimulator.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import gymsimulator.game.Screens.PlayScreen;
+import gymsimulator.game.States.MainMenu;
 
 public class gymSimulator extends Game {
 
@@ -18,7 +18,7 @@ public class gymSimulator extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+		setScreen(new MainMenu(this));
 	}
 
 	@Override

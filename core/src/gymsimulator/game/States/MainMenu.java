@@ -1,18 +1,13 @@
-package gymsimulator.game.Screens;
+package gymsimulator.game.States;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -20,10 +15,12 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 import gymsimulator.game.*;
 import gymsimulator.game.Scenes.Hud;
@@ -33,12 +30,14 @@ import gymsimulator.game.Sprites.Bro;
 /**
  * Created by pedro on 09/05/2016.
  */
-public class PlayScreen implements Screen {
+public class MainMenu implements Screen {
+
+    private Table table = new Table();
     private gymSimulator game;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
-    private boolean hudFlag=false;
+
 
 
     private TmxMapLoader maploader;
@@ -51,7 +50,7 @@ public class PlayScreen implements Screen {
     private Bro player;
 
 
-    public PlayScreen(gymSimulator game){
+    public MainMenu(gymSimulator game){
         this.game=game;
         gamecam = new OrthographicCamera();
         gamePort = new StretchViewport(gymSimulator.V_WIDTH/gymSimulator.PPM, gymSimulator.V_HEIGHT/gymSimulator.PPM,gamecam );
@@ -75,7 +74,6 @@ public class PlayScreen implements Screen {
 
 
 
-
     }
 
     @Override
@@ -95,15 +93,33 @@ public class PlayScreen implements Screen {
             }
 
             if(gamecam.position.x > (gymSimulator.V_WIDTH*2))
-                hudFlag=true;
+                hud.showLabels(true);
             else{
-                hudFlag=false;
+                hud.showLabels(false);
             }
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*2+gymSimulator.V_WIDTH/4))
-                hud.setLabelPlay("PLAY WEIGHT BALANCING");
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*3+gymSimulator.V_WIDTH/4))
-                hud.setLabelPlay("PLAY RUNNING FINGERS");
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*2+gymSimulator.V_WIDTH/4)){
 
+                hud.setLabelPlay("PLAY WEIGHT BALANCING");
+                hud.playSelectedGame.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        game.setScreen(new RunnerGameState(game));
+                    }
+
+                });
+
+            }
+
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*3+gymSimulator.V_WIDTH/4)){
+                hud.setLabelPlay("PLAY RUNNING FINGERS");
+                hud.playSelectedGame.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        game.setScreen(new RunnerGameState(game));
+                    }
+
+                });
+            }
 
 
         }
@@ -136,8 +152,8 @@ public class PlayScreen implements Screen {
         b2dr.render(world,gamecam.combined);
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        if(hudFlag)
-            hud.stage.draw();
+
+        hud.stage.draw();
 
     }
 
