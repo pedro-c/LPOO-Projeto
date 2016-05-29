@@ -9,22 +9,22 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Runner extends ApplicationAdapter {
+public class Treadmill extends ApplicationAdapter {
 
     private static final int        FRAME_COLS = 4;         // #1
     private static final int        FRAME_ROWS = 1;         // #2
 
     Animation walkAnimation;          // #3
     Texture walkSheet;              // #4
-    TextureRegion[]                 walkFrames;             // #5
+    TextureRegion[] walkFrames;             // #5
     SpriteBatch spriteBatch;            // #6
-    TextureRegion                   currentFrame;           // #7
+    TextureRegion currentFrame;           // #7
 
     float stateTime;                                        // #8
 
     @Override
     public void create() {
-        walkSheet = new Texture("flooranimation.png"); // #9
+        walkSheet = new Texture("flooranimation2.png"); // #9
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);              // #10
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
@@ -44,7 +44,7 @@ public class Runner extends ApplicationAdapter {
         stateTime += Gdx.graphics.getDeltaTime();           // #15
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);  // #16
         spriteBatch.begin();
-        spriteBatch.draw(currentFrame, 10, 10);             // #17
+        spriteBatch.draw(currentFrame, 50, 100);             // #17
         spriteBatch.end();
     }
 }

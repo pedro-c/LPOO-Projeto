@@ -20,16 +20,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-
 import gymsimulator.game.*;
+import gymsimulator.game.Logic.MainMenuLogic;
 import gymsimulator.game.Scenes.Hud;
-import gymsimulator.game.Sprites.Bro;
 
-
-/**
- * Created by pedro on 09/05/2016.
- */
 public class MainMenu implements Screen {
 
     private Table table = new Table();
@@ -37,21 +31,16 @@ public class MainMenu implements Screen {
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
-
-
-
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthoCachedTiledMapRenderer renderer;
-
     private World world;
     private Box2DDebugRenderer b2dr;
-
-    private Bro player;
-
-
+    public MainMenuLogic menuLogic;
     public MainMenu(gymSimulator game){
         this.game=game;
+
+        menuLogic = new MainMenuLogic();
         gamecam = new OrthographicCamera();
         gamePort = new StretchViewport(gymSimulator.V_WIDTH/gymSimulator.PPM, gymSimulator.V_HEIGHT/gymSimulator.PPM,gamecam );
         hud = new Hud(game.batch);
@@ -67,10 +56,6 @@ public class MainMenu implements Screen {
         world = new World(new Vector2(0,-10), true);
         b2dr = new Box2DDebugRenderer();
 
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
 
 
 
@@ -82,48 +67,33 @@ public class MainMenu implements Screen {
     }
 
     public void handleInput(float dt){
-
-        if(Gdx.input.isTouched()){
-            if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 1600){
-                gamecam.position.x -= Gdx.input.getDeltaX()*dt*12;
-            }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) < 0){
-                gamecam.position.x = gymSimulator.V_WIDTH/2+1;
-            }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) > 1600){
-                gamecam.position.x = 1600-gymSimulator.V_WIDTH/2-1;
-            }
-
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*2))
-                hud.showLabels(true);
-            else{
-                hud.showLabels(false);
-            }
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*2+gymSimulator.V_WIDTH/4)){
-
+        int ret=menuLogic.update(gamecam, dt, hud);
+        switch (ret){
+            case 0:
+                break;
+            case 1:
                 hud.setLabelPlay("PLAY WEIGHT BALANCING");
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
+                        game.getScreen().dispose();
                         game.setScreen(new RunnerGameState(game));
                     }
 
                 });
-
-            }
-
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*3+gymSimulator.V_WIDTH/4)){
-                hud.setLabelPlay("PLAY RUNNING FINGERS");
+                break;
+            case 2:
+                hud.setLabelPlay("PLAY TREADMILL");
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
+                        game.getScreen().dispose();
                         game.setScreen(new RunnerGameState(game));
                     }
 
                 });
-            }
-
-
+                break;
         }
-
 
 
 
@@ -177,8 +147,10 @@ public class MainMenu implements Screen {
 
     }
 
+
     @Override
     public void dispose() {
 
     }
+
 }
