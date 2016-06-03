@@ -15,6 +15,7 @@ public class MainMenuLogic {
     private static final int WEIGHT_BALANCING = 1;
     private static final int TREADMILL = 2;
     private static final int ABS_CHALLENGE = 3;
+    private static final int MULTIPLAYER_FIGHT = 4;
     public int returnValue = 0;
 
 
@@ -27,12 +28,12 @@ public class MainMenuLogic {
 
         returnValue=0;
         if(Gdx.input.isTouched()){
-            if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 2000){
+            if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 2400){
                 gamecam.position.x -= Gdx.input.getDeltaX()*dt*12;
             }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) < 0){
                 gamecam.position.x = gymSimulator.V_WIDTH/2+1;
-            }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) > 2000){
-                gamecam.position.x = 2000-gymSimulator.V_WIDTH/2-1;
+            }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) > 2400){
+                gamecam.position.x = 2400-gymSimulator.V_WIDTH/2-1;
             }
 
             if(gamecam.position.x > (gymSimulator.V_WIDTH*2))
@@ -51,6 +52,9 @@ public class MainMenuLogic {
             }
             if(gamecam.position.x > (gymSimulator.V_WIDTH*4+gymSimulator.V_WIDTH/4)){
                 returnValue=ABS_CHALLENGE;
+            }
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*5+gymSimulator.V_WIDTH/4)){
+                returnValue=MULTIPLAYER_FIGHT;
             }
 
         }

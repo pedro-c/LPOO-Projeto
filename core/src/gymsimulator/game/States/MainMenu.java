@@ -72,7 +72,8 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-
+                        game.setScreen(new WeightLiftingState(game));
+                        dispose();
                     }
 
                 });
@@ -96,6 +97,17 @@ public class MainMenu implements Screen {
                         game.setScreen(new AbsGameState(game));
                         dispose();
                 }
+
+                });
+                break;
+            case 4:
+                hud.setLabelPlay("PLAY MULTIPLAYER FIGHT");
+                hud.playSelectedGame.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        game.setScreen(new MultiplayerFight(game));
+                        dispose();
+                    }
 
                 });
                 break;

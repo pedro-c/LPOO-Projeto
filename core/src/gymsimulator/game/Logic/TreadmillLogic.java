@@ -173,7 +173,7 @@ public class TreadmillLogic {
         if (endGame==true) {
             if (score > highscoreTreadmill) {
                 if (saveScores == false)
-                    prefs.putInteger("highscoreTreadmill", score*1000/timer);
+                    prefs.putInteger("highscoreTreadmill", score);
                 prefs.flush();
                 saveScores = true;
             }

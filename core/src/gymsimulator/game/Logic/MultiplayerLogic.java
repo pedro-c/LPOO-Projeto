@@ -5,7 +5,8 @@ package gymsimulator.game.Logic;
  */
 public class MultiplayerLogic {
 
-
+    public int blueHealth;
+    public int redHealth;
 
     public MultiplayerLogic(){
 

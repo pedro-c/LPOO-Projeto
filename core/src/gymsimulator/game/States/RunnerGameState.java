@@ -102,7 +102,7 @@ public class RunnerGameState implements Screen {
     public void update(float dt){
         float flag=tmLogic.update(dt);
         handleInput(dt);
-        //hud.setLabelPlay(((Integer)tmLogic.score).toString());
+
 
 
     }
@@ -115,7 +115,7 @@ public class RunnerGameState implements Screen {
         if(tmLogic.timer > 2000)
             tmLogic.endGame=true;
         if(tmLogic.endGame){
-            hud.setLabelPlay(" Score: " + ((Integer)(tmLogic.score*1000/tmLogic.timer)).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
+            hud.setLabelPlay(" Score: " + ((Integer)(tmLogic.score)).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
             hud.showLost(true);
         }else
             hud.setLabelPlay("Timer: " + ((Integer)tmLogic.timer).toString() + " Steps: " + ((Integer)tmLogic.score).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
