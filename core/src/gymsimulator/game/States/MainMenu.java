@@ -9,14 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -26,8 +21,7 @@ import gymsimulator.game.Scenes.Hud;
 
 public class MainMenu implements Screen {
 
-    private Table table = new Table();
-    private gymSimulator game;
+    gymSimulator game;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
@@ -37,6 +31,8 @@ public class MainMenu implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     public MainMenuLogic menuLogic;
+
+
     public MainMenu(gymSimulator game){
         this.game=game;
 
@@ -76,8 +72,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.getScreen().dispose();
-                        game.setScreen(new RunnerGameState(game));
+
                     }
 
                 });
@@ -87,9 +82,20 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.getScreen().dispose();
                         game.setScreen(new RunnerGameState(game));
+                        dispose();
                     }
+
+                });
+                break;
+            case 3:
+                hud.setLabelPlay("PLAY ABS CHALLENGE");
+                hud.playSelectedGame.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        game.setScreen(new AbsGameState(game));
+                        dispose();
+                }
 
                 });
                 break;
@@ -150,7 +156,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
-
     }
 
 }

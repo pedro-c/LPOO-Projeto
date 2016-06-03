@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 
 import gymsimulator.game.gymSimulator;
 
@@ -25,6 +25,7 @@ public class Hud {
     private Skin skin;
     private Table table = new Table();
     public TextButton playSelectedGame;
+    private Label lost;
 
 
     public Hud(SpriteBatch sb){
@@ -50,11 +51,14 @@ public class Hud {
         skin.add("default", playButtonStyle);
 
         playSelectedGame = new TextButton("", skin);
+        lost = new Label("LOST!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        lost.setVisible(false);
 
         table.top();
         table.setFillParent(true);
         table.add(playSelectedGame).expandX().padTop(10);
-
+        table.row();
+        table.add(lost);
         stage.addActor(table);
 
 
@@ -68,6 +72,10 @@ public class Hud {
 
     public void showLabels(boolean bool){
         table.setVisible(bool);
+    }
+
+    public void showLost(boolean bool){
+        lost.setVisible(bool);
     }
 
 
