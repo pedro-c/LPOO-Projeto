@@ -54,10 +54,11 @@ public class AbsLogic {
                     if(incScore == true){
                         score++;
                         incScore=false;
-                        timer+=100;
+                        timer+=20;
                     }
 
                 }else{
+                    Gdx.input.vibrate(60);
                     if(score > 0){
                         score--;
                     }
