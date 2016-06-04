@@ -20,7 +20,7 @@ import gymsimulator.game.gymSimulator;
 public class MultiplayerFight implements Screen {
 
 
-    private gymSimulator game;
+    private final gymSimulator game;
     private MultiplayerLogic mpLogic;
     private Texture fistR;
     private Texture fistB;
@@ -55,13 +55,16 @@ public class MultiplayerFight implements Screen {
     private Texture healthBarRed;
     private Texture healthBarGreen;
     private Texture buttonShadow;
+    private Texture knockout;
+    private Image knockoutButton;
     SpriteBatch spriteBatch;
     public Stage stage;
+
     private Hud hud;
 
 
 
-    public MultiplayerFight(gymSimulator game){
+    public MultiplayerFight(final gymSimulator game){
 
         this.game=game;
         hud = new Hud(game.batch);
@@ -97,10 +100,14 @@ public class MultiplayerFight implements Screen {
         //Ring
         ring = new Texture("ring.png");
 
+        //KnockOut
+        knockout = new Texture("knockout.png");
+
         buttonFistB = new Image(fistB);
         buttonFistR = new Image(fistR);
         buttonShieldB = new Image(shieldB);
         buttonShieldR = new Image(shieldR);
+        knockoutButton = new Image(knockout);
         spriteBatch = new SpriteBatch();
 
         Gdx.input.setInputProcessor(stage);
@@ -108,25 +115,40 @@ public class MultiplayerFight implements Screen {
         stage.addActor(buttonFistR);
         stage.addActor(buttonShieldB);
         stage.addActor(buttonShieldR);
+        stage.addActor(knockoutButton);
 
         buttonFistB.setPosition(100, Gdx.graphics.getHeight()/12);
-        buttonFistR.setPosition(Gdx.graphics.getWidth()-350, Gdx.graphics.getHeight()/12);
+        buttonFistR.setPosition(Gdx.graphics.getWidth()-350, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250);
         buttonShieldB.setPosition(100, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250);
-        buttonShieldR.setPosition(Gdx.graphics.getWidth()-350, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250);
+        buttonShieldR.setPosition(Gdx.graphics.getWidth()-350, Gdx.graphics.getHeight()/12);
+        knockoutButton.setPosition(Gdx.graphics.getWidth()/2-250, Gdx.graphics.getHeight()/2-175);
 
 
         buttonFistB.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 mpLogic.playerBlueAttacking();
+                return true;
+            }
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                mpLogic.playerBlueAttacking=false;
             }
 
         });
 
         buttonFistR.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 mpLogic.playerRedAttacking();
+
+                return true;
+            }
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button){
+                mpLogic.playerRedDAttacking=false;
             }
 
         });
@@ -161,6 +183,15 @@ public class MultiplayerFight implements Screen {
 
         });
 
+        knockoutButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                game.setScreen(new MainMenu(game));
+                dispose();
+            }
+
+        });
+
 
     }
 
@@ -183,7 +214,7 @@ public class MultiplayerFight implements Screen {
         spriteBatch.draw(shieldR, Gdx.graphics.getWidth()-300, Gdx.graphics.getHeight()/12, 250, 250 );
 
         spriteBatch.draw(buttonShadow, 50+130-mpLogic.buttonBSsize/2, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250+125-mpLogic.buttonBSsize/2, mpLogic.buttonBSsize, mpLogic.buttonBSsize );
-        spriteBatch.draw(buttonShadow, Gdx.graphics.getWidth()-300+120-mpLogic.buttonRSsize/2, Gdx.graphics.getHeight()/12-250+125-mpLogic.buttonRSsize/2, mpLogic.buttonRSsize, mpLogic.buttonRSsize );
+        spriteBatch.draw(buttonShadow, Gdx.graphics.getWidth()-300+120-mpLogic.buttonRSsize/2, Gdx.graphics.getHeight()/12+125-mpLogic.buttonRSsize/2, mpLogic.buttonRSsize, mpLogic.buttonRSsize );
 
 
         spriteBatch.draw(healthBarRed, Gdx.graphics.getWidth()-400, 100, 50,Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12);
@@ -200,23 +231,40 @@ public class MultiplayerFight implements Screen {
         //draw Player Blue
         spriteBatch.draw(BPlayer, 600, Gdx.graphics.getHeight()/2-125, 201, 252);
         if(mpLogic.playerBlueDefending){
-            spriteBatch.draw(BLDD, 600, Gdx.graphics.getHeight()/2-125+252, 232, 88);
-            spriteBatch.draw(BRDD, 600, Gdx.graphics.getHeight()/2-125, 232, 88);
+            spriteBatch.draw(BLDD, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
+            spriteBatch.draw(BRDD, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
+        }else if(mpLogic.playerBlueAttacking && mpLogic.switchFistB==false){
+            spriteBatch.draw(fistBLA, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
+            spriteBatch.draw(fistBRD, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
+        }else if(mpLogic.playerBlueAttacking && mpLogic.switchFistB==true){
+            spriteBatch.draw(fistBLD, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
+            spriteBatch.draw(fistBRA, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
+        }else{
+            spriteBatch.draw(fistBLD, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
+            spriteBatch.draw(fistBRD, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
         }
 
         //draw Player Red
         spriteBatch.draw(RPlayer, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125, 201, 252);
-        if(mpLogic.playerBlueDefending){
-            spriteBatch.draw(RRDD, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125+252, 232, 88);
-            spriteBatch.draw(RLDD, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125, 232, 88);
-        }if(mpLogic.playerRedDAttacking){
-            spriteBatch.draw(fistRLA, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125+252, 232, 88);
-            spriteBatch.draw(fistRRD, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125, 232, 88);
+        if(mpLogic.playerRedDefending){
+            spriteBatch.draw(RRDD, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
+            spriteBatch.draw(RLDD, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-155, 232, 88);
+        }else if(mpLogic.playerRedDAttacking && mpLogic.switchFistR==false){
+            spriteBatch.draw(fistRLA, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
+            spriteBatch.draw(fistRRD, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-150, 232, 88);
+        }else if(mpLogic.playerRedDAttacking && mpLogic.switchFistR==true){
+            spriteBatch.draw(fistRLD, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
+            spriteBatch.draw(fistRRA, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-150, 232, 88);
         }else{
-            spriteBatch.draw(fistRLD, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125+252, 232, 88);
-            spriteBatch.draw(fistRRD, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125, 232, 88);
-
+            spriteBatch.draw(fistRLD, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
+            spriteBatch.draw(fistRRD, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-150, 232, 88);
         }
+
+        //draw knockout banner
+        if(mpLogic.endGame){
+            spriteBatch.draw(knockout, Gdx.graphics.getWidth()/2-250, Gdx.graphics.getHeight()/2-175, 500, 350);
+        }
+
 
         spriteBatch.end();
         hud.stage.draw();
@@ -257,6 +305,31 @@ public class MultiplayerFight implements Screen {
 
     @Override
     public void dispose() {
+        fistR.dispose();
+        fistB.dispose();
+        shieldR.dispose();
+        shieldB.dispose();
+        RPlayer.dispose();
+        fistRRA.dispose();
+        fistRLA.dispose();
+        fistRRD.dispose();
+        fistRLD.dispose();
+        RRDD.dispose();
+        RLDD.dispose();
+        BPlayer.dispose();
+        fistBRA.dispose();
+        fistBLA.dispose();
+        fistBRD.dispose();
+        fistBLD.dispose();
+        BRDD.dispose();
+        BLDD.dispose();
+        ring.dispose();
+        healthBarRed.dispose();
+        healthBarGreen.dispose();
+        buttonShadow.dispose();
+        knockout.dispose();
+        spriteBatch.dispose();
+        stage.dispose();
 
 
     }

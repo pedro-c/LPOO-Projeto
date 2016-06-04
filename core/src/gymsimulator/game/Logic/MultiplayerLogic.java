@@ -19,8 +19,14 @@ public class MultiplayerLogic {
     public boolean playerBlueStartDefend=false;
     public int buttonRSsize=0;
     public int buttonBSsize=0;
-    private boolean endGame=false;
+    public boolean endGame=false;
 
+
+    public boolean switchFistR=false;
+    public boolean switchFistB=false;
+
+    private int deltaSwitchFistR=0;
+    private int deltaSwitchFistB=0;
 
     public MultiplayerLogic(){
 
@@ -29,8 +35,9 @@ public class MultiplayerLogic {
     public int update(float dt) {
 
 
-        if(blueHealth==0 || redHealth==0)
+        if(blueHealth<=0 || redHealth<=0)
             endGame=true;
+
         if(!endGame) {
             float delta = Gdx.graphics.getDeltaTime();
             if (playerRedStartDefend == true && deltaRcounter < 225) {
@@ -54,24 +61,67 @@ public class MultiplayerLogic {
                 playerBlueDefending = false;
             } else
                 playerBlueDefending = false;
+
+
+            if(switchFistR == false){
+                if(deltaSwitchFistR==0){
+                    if(blueHealth>0 && playerRedDAttacking)
+                        blueHealth-=25;
+                }
+                deltaSwitchFistR++;
+                if(deltaSwitchFistR>24){
+                    switchFistR=true;
+                    deltaSwitchFistR=0;
+                }
+            }else if(switchFistR == true){
+                if(deltaSwitchFistR==0){
+                    if(blueHealth>0 && playerRedDAttacking)
+                        blueHealth-=25;
+                }
+                deltaSwitchFistR--;
+                if(deltaSwitchFistR<-24){
+                    switchFistR=false;
+                    deltaSwitchFistR=0;
+                }
+            }
+
+            if(switchFistB == false){
+                if(deltaSwitchFistB==0){
+                    if(redHealth>0 && playerBlueAttacking)
+                        redHealth-=25;
+                }
+                deltaSwitchFistB++;
+                if(deltaSwitchFistB>24){
+                    switchFistB=true;
+                    deltaSwitchFistB=0;
+                }
+            }else if(switchFistB == true){
+                if(deltaSwitchFistB==0){
+                    if(redHealth>0 && playerBlueAttacking)
+                        redHealth-=25;
+                }
+                deltaSwitchFistB--;
+                if(deltaSwitchFistB<-24){
+                    switchFistB=false;
+                    deltaSwitchFistB=0;
+                }
+            }
         }
         return 0;
     }
 
     public void playerRedAttacking(){
-        if(!playerBlueDefending){
-            if(blueHealth>0)
-                blueHealth-=25;
+        if(!playerBlueDefending && !endGame){
+            playerRedDAttacking=true;
         }
-        playerRedDAttacking=true;
+
 
     }
     public void playerBlueAttacking(){
-        if(!playerRedDefending){
-            if(redHealth>0)
-                redHealth-=25;
+        if(!playerRedDefending && !endGame){
+            playerBlueAttacking=true;
         }
-        playerBlueAttacking=true;
+
     }
 
     public void setPlayerRedDefending(boolean bool){
