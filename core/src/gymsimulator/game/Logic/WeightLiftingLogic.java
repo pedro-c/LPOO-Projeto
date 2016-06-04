@@ -1,8 +1,9 @@
 package gymsimulator.game.Logic;
 
 import com.badlogic.gdx.Gdx;
-import java.util.Random;
 import com.badlogic.gdx.Preferences;
+
+import java.util.Random;
 
 
 /**
@@ -30,6 +31,10 @@ public class WeightLiftingLogic {
     private boolean scoresSaved = false;
     private float traceSpeed;
     private boolean lifted = false;
+    public int leftArmSize=200;
+    public int rightArmSize=200;
+    public float weightRotation=0;
+
 
 
     public WeightLiftingLogic()
@@ -59,6 +64,10 @@ public class WeightLiftingLogic {
     public int update(float delta) {
 
         if(!endGame) {
+            if(trace_x-(Gdx.graphics.getWidth()/4)+ 5<statusBarMaxX/2)
+                weightRotation=trace_x/100;
+            else
+                weightRotation=-trace_x/100;
             if (!lifted) {
                 endGame = lift(delta);
                 if(endGame)

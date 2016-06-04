@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -25,6 +26,11 @@ public class WeightLiftingState implements Screen  {
 
     Texture bar;
     Texture trace;
+    Texture monkey;
+    Texture monkeyRarm;
+    Texture monkeyLarm;
+    Texture weight;
+    TextureRegion weightRegion;
     SpriteBatch spriteBatch;
 
     Texture backToMenu;
@@ -39,6 +45,11 @@ public class WeightLiftingState implements Screen  {
         hud = new Hud(game.batch);
         bar = new Texture("bar.png");
         trace = new Texture("trace.png");
+        monkey = new Texture("monkey.png");
+        monkeyRarm = new Texture("rightMarm.png");
+        monkeyLarm = new Texture("leftMArm.png");
+        weight = new Texture("weight.png");
+        weightRegion = new TextureRegion(weight);
         spriteBatch = new SpriteBatch();
 
         wtLogic = new WeightLiftingLogic();
@@ -68,6 +79,18 @@ public class WeightLiftingState implements Screen  {
         spriteBatch.draw(trace, wtLogic.trace_x, wtLogic.trace_y, 20, 40);
         imageBackToMenu.setPosition(Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4);
         spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4, 200, 200);
+
+        //weight
+        spriteBatch.draw(weightRegion,Gdx.graphics.getWidth()/2-400, 370,400,150, 800,300,1,1,wtLogic.weightRotation/3+wtLogic.weightRotation);
+
+         //Monkey
+        spriteBatch.draw(monkeyLarm,Gdx.graphics.getWidth()/2-150,400, 100,wtLogic.leftArmSize-wtLogic.weightRotation);
+        spriteBatch.draw(monkeyRarm,Gdx.graphics.getWidth()/2+50,400, 100,wtLogic.rightArmSize+wtLogic.weightRotation);
+        spriteBatch.draw(monkey,Gdx.graphics.getWidth()/2-300,50, 600,600);
+
+
+
+
 
         spriteBatch.end();
         hud.stage.draw();

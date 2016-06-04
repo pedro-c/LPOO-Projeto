@@ -44,10 +44,12 @@ public class Hud {
 
 
         TextButton.TextButtonStyle playButtonStyle = new TextButton.TextButtonStyle();
+
         playButtonStyle.up = skin.newDrawable("white", Color.CLEAR);
         playButtonStyle.down = skin.newDrawable("white", Color.BLUE);
         playButtonStyle.checked = skin.newDrawable("white", Color.CLEAR);
         playButtonStyle.font = skin.getFont("default");
+        playButtonStyle.up.setBottomHeight(25);
         skin.add("default", playButtonStyle);
 
         playSelectedGame = new TextButton("", skin);

@@ -43,7 +43,7 @@ public class MainMenu implements Screen {
 
 
         maploader = new TmxMapLoader();
-        map = maploader.load("back2.tmx");
+        map = maploader.load("gym.tmx");
 
         renderer = new OrthoCachedTiledMapRenderer(map, 1/gymSimulator.PPM);
         gamecam.position.set(gymSimulator.V_WIDTH/2+gymSimulator.V_WIDTH, gymSimulator.V_HEIGHT/2,0);
@@ -168,6 +168,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
+
     }
 
 }

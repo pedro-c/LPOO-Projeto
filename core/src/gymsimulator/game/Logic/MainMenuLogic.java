@@ -28,12 +28,12 @@ public class MainMenuLogic {
 
         returnValue=0;
         if(Gdx.input.isTouched()){
-            if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 2400){
-                gamecam.position.x -= Gdx.input.getDeltaX()*dt*12;
-            }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) < 0){
+            if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 7680){
+                gamecam.position.x -= Gdx.input.getDeltaX()*dt*30;
+            }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) <= 0){
                 gamecam.position.x = gymSimulator.V_WIDTH/2+1;
-            }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) > 2400){
-                gamecam.position.x = 2400-gymSimulator.V_WIDTH/2-1;
+            }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) >= 7680){
+                gamecam.position.x = 7680-gymSimulator.V_WIDTH/2-1;
             }
 
             if(gamecam.position.x > (gymSimulator.V_WIDTH*2))
