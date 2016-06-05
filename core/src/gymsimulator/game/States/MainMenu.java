@@ -3,6 +3,8 @@ package gymsimulator.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,9 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import gymsimulator.game.*;
+
 import gymsimulator.game.Logic.MainMenuLogic;
 import gymsimulator.game.Scenes.Hud;
+import gymsimulator.game.gymSimulator;
 
 public class MainMenu implements Screen {
 
@@ -31,21 +34,24 @@ public class MainMenu implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     public MainMenuLogic menuLogic;
+    public AssetManager manager;
+    private boolean loaded=false;
 
 
-    public MainMenu(gymSimulator game){
+
+    public MainMenu(gymSimulator game, AssetManager manager){
         this.game=game;
-
+        this.manager=manager;
         menuLogic = new MainMenuLogic();
         gamecam = new OrthographicCamera();
         gamePort = new StretchViewport(gymSimulator.V_WIDTH/gymSimulator.PPM, gymSimulator.V_HEIGHT/gymSimulator.PPM,gamecam );
         hud = new Hud(game.batch);
 
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        manager.load("gym.tmx", TiledMap.class);
 
-        maploader = new TmxMapLoader();
-        map = maploader.load("gym.tmx");
 
-        renderer = new OrthoCachedTiledMapRenderer(map, 1/gymSimulator.PPM);
+
         gamecam.position.set(gymSimulator.V_WIDTH/2+gymSimulator.V_WIDTH, gymSimulator.V_HEIGHT/2,0);
 
 
@@ -72,7 +78,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new WeightLiftingState(game));
+                        game.setScreen(new WeightLiftingState(game, manager));
                         dispose();
                     }
 
@@ -83,7 +89,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new RunnerGameState(game));
+                        game.setScreen(new RunnerGameState(game, manager));
                         dispose();
                     }
 
@@ -94,7 +100,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new AbsGameState(game));
+                        game.setScreen(new AbsGameState(game, manager));
                         dispose();
                 }
 
@@ -105,7 +111,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new MultiplayerFight(game));
+                        game.setScreen(new MultiplayerFight(game, manager));
                         dispose();
                     }
 
@@ -130,20 +136,36 @@ public class MainMenu implements Screen {
     @Override
     public void render(float delta) {
 
-        update(delta);
-
         Gdx.gl.glClearColor(0,(float)150/255,(float)136/255,0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.render();
+            if(!loaded){
+                hud.setLabelPlay("LOADING...");
+                manager.load("gym.tmx", TiledMap.class);
+                manager.finishLoading();
+                map = manager.get("gym.tmx");
+                renderer = new OrthoCachedTiledMapRenderer(map, 1/gymSimulator.PPM);
+                hud.setLabelPlay(" ");
+                loaded=true;
+            }else {
 
-        b2dr.render(world,gamecam.combined);
+                update(delta);
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 
+                renderer.render();
+
+                b2dr.render(world, gamecam.combined);
+
+                game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+            }
         hud.stage.draw();
+        }
 
-    }
+
+
+
+
+
 
     @Override
     public void resize(int width, int height) {
@@ -168,7 +190,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
-
+        manager.clear();
     }
 
 }

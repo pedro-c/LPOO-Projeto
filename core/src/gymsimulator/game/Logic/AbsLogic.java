@@ -24,6 +24,8 @@ public class AbsLogic {
     public boolean saveScores = false;
     private int traceSpeed;
     Preferences prefs;
+    public int delta = 0;
+    public boolean lift = false;
 
     public AbsLogic(){
         endGame=false;
@@ -33,6 +35,7 @@ public class AbsLogic {
 
     public int update(float dt) {
 
+        delta++;
         if (!endGame) {
             traceSpeed=20+2*score;
             if (trace_x >= statusBarMaxX){
@@ -54,7 +57,10 @@ public class AbsLogic {
                     if(incScore == true){
                         score++;
                         incScore=false;
-                        timer+=20;
+                        timer+=50;
+                        lift=true;
+                        delta=0;
+
                     }
 
                 }else{

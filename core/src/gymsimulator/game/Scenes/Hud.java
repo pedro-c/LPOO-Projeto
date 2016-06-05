@@ -26,6 +26,7 @@ public class Hud {
     private Table table = new Table();
     public TextButton playSelectedGame;
     private Label lost;
+    BitmapFont font;
 
 
     public Hud(SpriteBatch sb){
@@ -34,7 +35,9 @@ public class Hud {
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
         skin.add("white", new Texture(pixmap));
-        skin.add("default", new BitmapFont());
+        font= new BitmapFont();
+        font.getData().setScale(5);
+        skin.add("default", font);
 
         viewport = new StretchViewport(gymSimulator.V_WIDTH, gymSimulator.V_HEIGHT);
 
@@ -49,7 +52,7 @@ public class Hud {
         playButtonStyle.down = skin.newDrawable("white", Color.BLUE);
         playButtonStyle.checked = skin.newDrawable("white", Color.CLEAR);
         playButtonStyle.font = skin.getFont("default");
-        playButtonStyle.up.setBottomHeight(25);
+
         skin.add("default", playButtonStyle);
 
         playSelectedGame = new TextButton("", skin);

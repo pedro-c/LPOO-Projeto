@@ -19,6 +19,7 @@ public class MainMenuLogic {
     public int returnValue = 0;
 
 
+
     public MainMenuLogic(){
 
     }
@@ -56,6 +57,7 @@ public class MainMenuLogic {
             if(gamecam.position.x > (gymSimulator.V_WIDTH*5+gymSimulator.V_WIDTH/4)){
                 returnValue=MULTIPLAYER_FIGHT;
             }
+
 
         }
 

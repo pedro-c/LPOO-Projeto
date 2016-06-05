@@ -2,6 +2,7 @@ package gymsimulator.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,8 @@ import gymsimulator.game.gymSimulator;
 /**
  * Created by Tiago on 31/05/2016.
  */
+
+
 public class WeightLiftingState implements Screen  {
 
     private Hud hud;
@@ -37,19 +40,16 @@ public class WeightLiftingState implements Screen  {
     Image imageBackToMenu;
     private gymSimulator game;
     public Stage stage;
+    public AssetManager manager;
+    private boolean loaded=false;
 
 
-    public WeightLiftingState(gymSimulator game) {
+    public WeightLiftingState(gymSimulator game, AssetManager manager) {
         this.game=game;
+        this.manager=manager;
         stage = new Stage();
         hud = new Hud(game.batch);
-        bar = new Texture("bar.png");
-        trace = new Texture("trace.png");
-        monkey = new Texture("monkey.png");
-        monkeyRarm = new Texture("rightMarm.png");
-        monkeyLarm = new Texture("leftMArm.png");
-        weight = new Texture("weight.png");
-        weightRegion = new TextureRegion(weight);
+
         spriteBatch = new SpriteBatch();
 
         wtLogic = new WeightLiftingLogic();
@@ -58,6 +58,10 @@ public class WeightLiftingState implements Screen  {
         imageBackToMenu = new Image(backToMenu);
         Gdx.input.setInputProcessor(stage);
         stage.addActor(imageBackToMenu);
+
+
+
+
     }
 
     public void update(float delta){
@@ -67,33 +71,60 @@ public class WeightLiftingState implements Screen  {
 
     @Override
     public void render(float delta) {
-        update(delta);
-        handleInput(delta);
-        float deltaTime = Gdx.graphics.getDeltaTime();
-        hud.setLabelPlay("Timer: " + ((Integer)((wtLogic.liftTimer))).toString() + " Score: " + ((Integer)wtLogic.score).toString() + "HighScore: " +((Integer)wtLogic.highscoreLifting).toString() );
 
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        spriteBatch.begin();
-        spriteBatch.draw(bar, Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6, Gdx.graphics.getWidth()/2, 40 );
-        spriteBatch.draw(trace, wtLogic.trace_x, wtLogic.trace_y, 20, 40);
-        imageBackToMenu.setPosition(Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4);
-        spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4, 200, 200);
 
-        //weight
-        spriteBatch.draw(weightRegion,Gdx.graphics.getWidth()/2-400, 370,400,150, 800,300,1,1,wtLogic.weightRotation/3+wtLogic.weightRotation);
+            if(!loaded){
+                hud.setLabelPlay("LOADING...");
+                manager.load("bar.png", Texture.class);
+                manager.load("trace.png", Texture.class);
+                manager.load("monkey.png", Texture.class);
+                manager.load("rightMarm.png", Texture.class);
+                manager.load("leftMArm.png", Texture.class);
+                manager.load("weight.png", Texture.class);
+                manager.load("backButton.png", Texture.class);
+                manager.finishLoading();
+                bar = manager.get("bar.png", Texture.class);
+                trace = manager.get("trace.png", Texture.class);
+                monkey = manager.get("monkey.png", Texture.class);
+                monkeyRarm = manager.get("rightMarm.png", Texture.class);
+                monkeyLarm = manager.get("leftMArm.png", Texture.class);
+                weight = manager.get("weight.png", Texture.class);
+                weightRegion = new TextureRegion(weight);
+                loaded=true;
+                hud.setLabelPlay(" ");
+            }else {
 
-         //Monkey
-        spriteBatch.draw(monkeyLarm,Gdx.graphics.getWidth()/2-150,400, 100,wtLogic.leftArmSize-wtLogic.weightRotation);
-        spriteBatch.draw(monkeyRarm,Gdx.graphics.getWidth()/2+50,400, 100,wtLogic.rightArmSize+wtLogic.weightRotation);
-        spriteBatch.draw(monkey,Gdx.graphics.getWidth()/2-300,50, 600,600);
+
+                update(delta);
+                handleInput(delta);
 
 
+                float deltaTime = Gdx.graphics.getDeltaTime();
+                hud.setLabelPlay("Timer: " + ((Integer) ((wtLogic.liftTimer))).toString() + " Score: " + ((Integer) wtLogic.score).toString() + "HighScore: " + ((Integer) wtLogic.highscoreLifting).toString());
 
 
+                spriteBatch.begin();
+                spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
+                spriteBatch.draw(trace, wtLogic.trace_x, wtLogic.trace_y, 20, 40);
+                imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
+                spriteBatch.draw(backToMenu, Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4, 200, 200);
 
-        spriteBatch.end();
+                //weight
+                spriteBatch.draw(weightRegion, Gdx.graphics.getWidth() / 2 - 400, 370, 400, 150, 800, 300, 1, 1, wtLogic.weightRotation / 3 + wtLogic.weightRotation);
+
+                //Monkey
+                spriteBatch.draw(monkeyLarm, Gdx.graphics.getWidth() / 2 - 150, 400, 100, wtLogic.leftArmSize - wtLogic.weightRotation*2);
+                spriteBatch.draw(monkeyRarm, Gdx.graphics.getWidth() / 2 + 50, 400, 100, wtLogic.rightArmSize + wtLogic.weightRotation*2);
+                spriteBatch.draw(monkey, Gdx.graphics.getWidth() / 2 - 300, 50, 600, 600);
+
+
+                spriteBatch.end();
+
+            }
         hud.stage.draw();
+
     }
 
 
@@ -109,7 +140,7 @@ public class WeightLiftingState implements Screen  {
             @Override
             public void clicked(InputEvent event, float x, float y){
 
-                game.setScreen(new MainMenu(game));
+                game.setScreen(new MainMenu(game, manager));
                 dispose();
             }
 
@@ -140,10 +171,9 @@ public class WeightLiftingState implements Screen  {
 
     @Override
     public void dispose() {
-        bar.dispose();
-        trace.dispose();
         spriteBatch.dispose();
-        backToMenu.dispose();
         stage.dispose();
+        manager.clear();
+
     }
 }
