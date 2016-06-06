@@ -36,6 +36,8 @@ public class AbsGameState implements Screen {
     private Image imageBackToMenu;
     private Texture play;
     private Image playButton;
+    private Texture replay;
+    private Image replayButton;
     private gymSimulator game;
     public Stage stage;
     public AssetManager manager;
@@ -80,6 +82,7 @@ public class AbsGameState implements Screen {
             manager.load("bro6.png", Texture.class);
             manager.load("playButton.png", Texture.class);
             manager.load("background2.png", Texture.class);
+            manager.load("replayButton.png", Texture.class);
             manager.finishLoading();
             bro1 = manager.get("bro1.png", Texture.class);
             bro2 = manager.get("bro2.png", Texture.class);
@@ -89,16 +92,40 @@ public class AbsGameState implements Screen {
             bro6 = manager.get("bro6.png", Texture.class);
             bar = manager.get("bar.png", Texture.class);
             play = manager.get("playButton.png", Texture.class);
+            replay = manager.get("replayButton.png", Texture.class);
             background = manager.get("background2.png", Texture.class);
             trace = manager.get("trace.png", Texture.class);
             backToMenu = manager.get("backButton.png", Texture.class);
             imageBackToMenu = new Image(backToMenu);
             playButton = new Image(play);
+            replayButton = new Image(replay);
 
             playButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
                     absLogic.gameStart=true;
+                    absLogic.startTimer=true;
+                }
+
+            });
+
+
+
+            replayButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    absLogic.score=0;
+                    absLogic.incScore = false;
+                    absLogic.timer=8*100;
+                    absLogic.startTimer=false;
+                    absLogic.highscoreAbs=0;
+                    absLogic.saveScores = false;
+                    absLogic.delta = 0;
+                    absLogic.lift = false;
+                    absLogic.startTimer=true;
+                    absLogic.gameStart=true;
+                    absLogic.endGame=false;
+
                 }
 
             });
@@ -106,6 +133,7 @@ public class AbsGameState implements Screen {
             Gdx.input.setInputProcessor(stage);
             stage.addActor(imageBackToMenu);
             stage.addActor(playButton);
+            stage.addActor(replayButton);
             loaded=true;
         }else {
             update(Gdx.graphics.getDeltaTime());
@@ -123,7 +151,6 @@ public class AbsGameState implements Screen {
             spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
             spriteBatch.draw(trace, absLogic.trace_x, absLogic.trace_y, 20, 40);
             imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
-            spriteBatch.draw(backToMenu, Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4, 200, 200);
 
             if(absLogic.lift==false){
                 spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
@@ -151,6 +178,15 @@ public class AbsGameState implements Screen {
                 playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
             }
+            if(absLogic.endGame==true){
+                replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
+                spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
+                imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);
+                spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150, 300, 300);
+            }else{
+                spriteBatch.draw(backToMenu, Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4, 200, 200);
+            }
+
             spriteBatch.end();
         }
         hud.stage.draw();

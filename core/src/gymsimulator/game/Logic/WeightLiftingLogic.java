@@ -28,9 +28,9 @@ public class WeightLiftingLogic {
     public int liftTimer;
     public boolean startTimer;
     public int highscoreLifting = 0;
-    private boolean scoresSaved = false;
+    public boolean scoresSaved = false;
     private float traceSpeed;
-    private boolean lifted = false;
+    public boolean lifted = false;
     public int leftArmSize=200;
     public int rightArmSize=200;
     public float weightRotation=0;

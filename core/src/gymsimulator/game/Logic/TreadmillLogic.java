@@ -13,7 +13,7 @@ public class TreadmillLogic {
     int rightScreen;
     public int score=0;
     public int startTimer=0;
-    public int timer=0;
+    public int timer=1000;
     public boolean endGame=false;
     public int highscoreTreadmill=0;
     public boolean saveScores = false;
@@ -36,7 +36,8 @@ public class TreadmillLogic {
     public int lowerFoot=1;
     public int falseFoot_xR;
     public int falseFoot_xL;
-    public boolean gameReady=true;
+    public boolean gameReady=false;
+    public boolean gameStart=false;
     public int deltaY=0;
 
 
@@ -64,7 +65,13 @@ public class TreadmillLogic {
 
     public int update(float dt){
         if(startTimer==1 && !endGame)
-            timer++;
+            if(timer<=0){
+                endGame=true;
+                return 0;
+            }
+
+            if(gameStart)
+                timer--;
         Random rn = new Random();
         int rand;
 
@@ -85,7 +92,7 @@ public class TreadmillLogic {
                 }
                 if (gameReady) {
                     score++;
-                    startTimer = 1;
+                    timer+=5;
                     if (lowerFoot == 4)
                         lowerFoot = 1;
                     else

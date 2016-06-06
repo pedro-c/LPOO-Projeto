@@ -27,15 +27,19 @@ public class WeightLiftingState implements Screen  {
 
     WeightLiftingLogic wtLogic;
 
-    Texture bar;
-    Texture trace;
-    Texture monkey;
-    Texture monkeyRarm;
-    Texture monkeyLarm;
-    Texture weight;
-    Texture background;
-    TextureRegion weightRegion;
-    SpriteBatch spriteBatch;
+    private Texture bar;
+    private Texture trace;
+    private Texture monkey;
+    private Texture monkeyRarm;
+    private Texture monkeyLarm;
+    private Texture weight;
+    private Texture background;
+    private TextureRegion weightRegion;
+    private SpriteBatch spriteBatch;
+    private Texture play;
+    private Image playButton;
+    private Texture replay;
+    private Image replayButton;
 
     Texture backToMenu;
     Image imageBackToMenu;
@@ -86,6 +90,8 @@ public class WeightLiftingState implements Screen  {
                 manager.load("weight.png", Texture.class);
                 manager.load("backButton.png", Texture.class);
                 manager.load("background3.png", Texture.class);
+                manager.load("playButton.png", Texture.class);
+                manager.load("replayButton.png", Texture.class);
                 manager.finishLoading();
                 bar = manager.get("bar.png", Texture.class);
                 trace = manager.get("trace.png", Texture.class);
@@ -94,9 +100,43 @@ public class WeightLiftingState implements Screen  {
                 monkeyLarm = manager.get("leftMArm.png", Texture.class);
                 weight = manager.get("weight.png", Texture.class);
                 background = manager.get("background3.png", Texture.class);
+                play = manager.get("playButton.png", Texture.class);
+                replay = manager.get("replayButton.png", Texture.class);
                 weightRegion = new TextureRegion(weight);
+                playButton = new Image(play);
+                replayButton = new Image(replay);
 
+                playButton.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        wtLogic.gameStart=true;
+                    }
+
+                });
+
+
+
+                replayButton.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        wtLogic.highscoreLifting = 0;
+                        wtLogic.scoresSaved = false;
+                        wtLogic.lifted = false;
+                        wtLogic.leftArmSize=200;
+                        wtLogic.rightArmSize=200;
+                        wtLogic. weightRotation=0;
+                        wtLogic.changeBarDirection = 1;
+                        wtLogic.score = 0;
+                        wtLogic.incScore = false;
+                        wtLogic.timer=8*100;
+                        wtLogic. liftTimer = 150;
+                        wtLogic. startTimer= false;
+                    }
+
+                });
                 loaded=true;
+                stage.addActor(playButton);
+                stage.addActor(replayButton);
                 hud.setLabelPlay(" ");
             }else {
 
@@ -113,8 +153,6 @@ public class WeightLiftingState implements Screen  {
                 spriteBatch.draw(background, 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
                 spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
                 spriteBatch.draw(trace, wtLogic.trace_x, wtLogic.trace_y, 20, 40);
-                imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
-                spriteBatch.draw(backToMenu, Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4, 200, 200);
 
                 //weight
                 spriteBatch.draw(weightRegion, Gdx.graphics.getWidth() / 2 - 400, 370, 400, 150, 800, 300, 1, 1, wtLogic.weightRotation / 3 + wtLogic.weightRotation);
@@ -124,6 +162,19 @@ public class WeightLiftingState implements Screen  {
                 spriteBatch.draw(monkeyRarm, Gdx.graphics.getWidth() / 2 + 50, 400, 100, wtLogic.rightArmSize + wtLogic.weightRotation*2);
                 spriteBatch.draw(monkey, Gdx.graphics.getWidth() / 2 - 300, 50, 600, 600);
 
+                if(wtLogic.gameStart==false){
+                    playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
+                    spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
+                }
+                if(wtLogic.endGame==true){
+                    replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
+                    spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
+                    imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);
+                    spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150, 300, 300);
+                }else{
+                    imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
+                    spriteBatch.draw(backToMenu, Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4, 200, 200);
+                }
 
                 spriteBatch.end();
 

@@ -43,6 +43,10 @@ public class RunnerGameState implements Screen {
     Image foot4;
     Image falseFoot;
     Image imageBackToMenu;
+    private Texture play;
+    private Image playButton;
+    private Texture replay;
+    private Image replayButton;
     public Stage stage;
     public AssetManager manager;
     public boolean loaded=false;
@@ -73,6 +77,8 @@ public class RunnerGameState implements Screen {
             manager.load("falseFootR.png", Texture.class);
             manager.load("falseFootL.png", Texture.class);
             manager.load("backButton.png", Texture.class);
+            manager.load("playButton.png", Texture.class);
+            manager.load("replayButton.png", Texture.class);
             manager.finishLoading();
             walkSheet = manager.get("flooranimation2.png", Texture.class);
             footPrintR = manager.get("footprintR.png", Texture.class);
@@ -80,7 +86,48 @@ public class RunnerGameState implements Screen {
             falseFootPrintR = manager.get("falseFootR.png", Texture.class);
             falseFootPrintL = manager.get("falseFootL.png", Texture.class);
             backToMenu = manager.get("backButton.png", Texture.class);
+            play = manager.get("playButton.png", Texture.class);
+            replay = manager.get("replayButton.png", Texture.class);
 
+            playButton = new Image(play);
+            replayButton = new Image(replay);
+
+            playButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    tmLogic.gameStart=true;
+                }
+
+            });
+
+
+
+            replayButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    tmLogic.score=0;
+                    tmLogic.startTimer=0;
+                    tmLogic.timer=1000;
+                    tmLogic.endGame=false;
+                    tmLogic.highscoreTreadmill=0;
+                    tmLogic.saveScores = false;
+                    tmLogic.lowerFoot=1;
+                    tmLogic.deltaY=0;
+                    tmLogic.foot1_x=200;
+                    tmLogic.foot3_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3;
+                    tmLogic.foot2_x=200+((Gdx.graphics.getWidth()-400)/2);
+                    tmLogic.foot2_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
+                    tmLogic.foot3_x=200;
+                    tmLogic.foot1_y=0;
+                    tmLogic.foot4_x=200+((Gdx.graphics.getWidth()-400)/2);
+                    tmLogic.foot4_y=Gdx.graphics.getHeight();
+                    tmLogic.falseFoot_x=200+((Gdx.graphics.getWidth()-400)/2);
+                    tmLogic.falseFoot_y=0;
+                    tmLogic.falseFoot_xR=200+((Gdx.graphics.getWidth()-400)/2);
+                    tmLogic.falseFoot_xL=200;
+                }
+
+            });
 
             TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);              // #10
             walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
@@ -125,6 +172,8 @@ public class RunnerGameState implements Screen {
             stage.addActor(foot4);
             stage.addActor(falseFoot);
             stage.addActor(imageBackToMenu);
+            stage.addActor(playButton);
+            stage.addActor(replayButton);
             hud.setLabelPlay(" ");
             loaded=true;
         }else{
@@ -135,8 +184,10 @@ public class RunnerGameState implements Screen {
             if(tmLogic.endGame){
                 hud.setLabelPlay(" Score: " + ((Integer)(tmLogic.score)).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
                 hud.showLost(true);
-            }else
+            }else{
                 hud.setLabelPlay("Timer: " + ((Integer)tmLogic.timer).toString() + " Steps: " + ((Integer)tmLogic.score).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
+                hud.showLost(false);
+            }
 
 
             stateTime = deltaTime;
@@ -184,6 +235,19 @@ public class RunnerGameState implements Screen {
                 spriteBatch.draw(falseFootPrintL, tmLogic.falseFoot_xL, tmLogic.foot4_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
 
             }
+            if(tmLogic.gameStart==false){
+                playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
+                spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
+            }
+            if(tmLogic.endGame==true){
+                replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
+                spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
+                imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);
+                spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150, 300, 300);
+            }else{
+                imageBackToMenu.setPosition(Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4);
+                spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4, 200, 200);
+            }
 
             foot1.setPosition(tmLogic.foot1_x, tmLogic.foot1_y);
             foot2.setPosition(tmLogic.foot2_x, tmLogic.foot2_y);
@@ -191,8 +255,6 @@ public class RunnerGameState implements Screen {
             foot4.setPosition(tmLogic.foot4_x, tmLogic.foot4_y);
             falseFoot.setPosition(tmLogic.falseFoot_x,tmLogic.falseFoot_y);
 
-            imageBackToMenu.setPosition(Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4);
-            spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4, 200, 200);
             spriteBatch.end();
         }
 
