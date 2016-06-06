@@ -33,6 +33,7 @@ public class WeightLiftingState implements Screen  {
     Texture monkeyRarm;
     Texture monkeyLarm;
     Texture weight;
+    Texture background;
     TextureRegion weightRegion;
     SpriteBatch spriteBatch;
 
@@ -84,6 +85,7 @@ public class WeightLiftingState implements Screen  {
                 manager.load("leftMArm.png", Texture.class);
                 manager.load("weight.png", Texture.class);
                 manager.load("backButton.png", Texture.class);
+                manager.load("background3.png", Texture.class);
                 manager.finishLoading();
                 bar = manager.get("bar.png", Texture.class);
                 trace = manager.get("trace.png", Texture.class);
@@ -91,7 +93,9 @@ public class WeightLiftingState implements Screen  {
                 monkeyRarm = manager.get("rightMarm.png", Texture.class);
                 monkeyLarm = manager.get("leftMArm.png", Texture.class);
                 weight = manager.get("weight.png", Texture.class);
+                background = manager.get("background3.png", Texture.class);
                 weightRegion = new TextureRegion(weight);
+
                 loaded=true;
                 hud.setLabelPlay(" ");
             }else {
@@ -106,6 +110,7 @@ public class WeightLiftingState implements Screen  {
 
 
                 spriteBatch.begin();
+                spriteBatch.draw(background, 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
                 spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
                 spriteBatch.draw(trace, wtLogic.trace_x, wtLogic.trace_y, 20, 40);
                 imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);

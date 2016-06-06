@@ -31,8 +31,8 @@ public class MainMenuLogic {
         if(Gdx.input.isTouched()){
             if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 7680){
                 gamecam.position.x -= Gdx.input.getDeltaX()*dt*30;
-            }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) <= 0){
-                gamecam.position.x = gymSimulator.V_WIDTH/2+1;
+            }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) <= 500){
+                gamecam.position.x = gymSimulator.V_WIDTH/2+250;
             }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) >= 7680){
                 gamecam.position.x = 7680-gymSimulator.V_WIDTH/2-1;
             }
@@ -45,16 +45,16 @@ public class MainMenuLogic {
 
 
 
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*2+gymSimulator.V_WIDTH/4)){
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*2)){
                 returnValue=WEIGHT_BALANCING;
             }
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*3+gymSimulator.V_WIDTH/4)){
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*3)){
                 returnValue=TREADMILL;
             }
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*4+gymSimulator.V_WIDTH/4)){
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*4)){
                 returnValue=ABS_CHALLENGE;
             }
-            if(gamecam.position.x > (gymSimulator.V_WIDTH*5+gymSimulator.V_WIDTH/4)){
+            if(gamecam.position.x > (gymSimulator.V_WIDTH*5)){
                 returnValue=MULTIPLAYER_FIGHT;
             }
 

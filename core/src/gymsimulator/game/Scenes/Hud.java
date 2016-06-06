@@ -36,7 +36,7 @@ public class Hud {
         pixmap.fill();
         skin.add("white", new Texture(pixmap));
         font= new BitmapFont();
-        font.getData().setScale(5);
+        font.getData().setScale(3);
         skin.add("default", font);
 
         viewport = new StretchViewport(gymSimulator.V_WIDTH, gymSimulator.V_HEIGHT);
@@ -56,7 +56,7 @@ public class Hud {
         skin.add("default", playButtonStyle);
 
         playSelectedGame = new TextButton("", skin);
-        lost = new Label("LOST!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        lost = new Label("LOST!", new Label.LabelStyle(font, Color.WHITE));
         lost.setVisible(false);
 
         table.top();

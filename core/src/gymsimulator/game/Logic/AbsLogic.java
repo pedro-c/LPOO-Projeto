@@ -26,6 +26,7 @@ public class AbsLogic {
     Preferences prefs;
     public int delta = 0;
     public boolean lift = false;
+    public boolean gameStart = false;
 
     public AbsLogic(){
         endGame=false;
@@ -36,7 +37,7 @@ public class AbsLogic {
     public int update(float dt) {
 
         delta++;
-        if (!endGame) {
+        if (!endGame && gameStart) {
             traceSpeed=20+2*score;
             if (trace_x >= statusBarMaxX){
                 changeBarDirection = -1;

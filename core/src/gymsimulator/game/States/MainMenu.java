@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -35,6 +37,8 @@ public class MainMenu implements Screen {
     private Box2DDebugRenderer b2dr;
     public MainMenuLogic menuLogic;
     public AssetManager manager;
+    private Texture bestScore;
+    private Image scoresButton;
     private boolean loaded=false;
 
 
@@ -52,7 +56,7 @@ public class MainMenu implements Screen {
 
 
 
-        gamecam.position.set(gymSimulator.V_WIDTH/2+gymSimulator.V_WIDTH, gymSimulator.V_HEIGHT/2,0);
+        gamecam.position.set(gymSimulator.V_WIDTH+gymSimulator.V_WIDTH/6, gymSimulator.V_HEIGHT/2,0);
 
 
         world = new World(new Vector2(0,-10), true);
@@ -96,7 +100,7 @@ public class MainMenu implements Screen {
                 });
                 break;
             case 3:
-                hud.setLabelPlay("PLAY ABS CHALLENGE");
+                hud.setLabelPlay("PLAY WEIGHT LIFTING");
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
@@ -142,9 +146,22 @@ public class MainMenu implements Screen {
             if(!loaded){
                 hud.setLabelPlay("LOADING...");
                 manager.load("gym.tmx", TiledMap.class);
+                manager.load("bestScores.png", Texture.class);
                 manager.finishLoading();
                 map = manager.get("gym.tmx");
+                bestScore = manager.get("bestScores.png", Texture.class);
+                scoresButton = new Image(bestScore);
                 renderer = new OrthoCachedTiledMapRenderer(map, 1/gymSimulator.PPM);
+
+                scoresButton.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y){
+                        game.setScreen(new ScoresState(game, manager));
+                        dispose();
+                    }
+
+                });
+
                 hud.setLabelPlay(" ");
                 loaded=true;
             }else {
@@ -152,11 +169,24 @@ public class MainMenu implements Screen {
                 update(delta);
 
 
+
+
                 renderer.render();
 
                 b2dr.render(world, gamecam.combined);
 
                 game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+                if(gamecam.position.x < gymSimulator.V_WIDTH+gymSimulator.V_WIDTH/5){
+                    game.batch.begin();
+                    game.batch.draw(bestScore, 0, 0, 300, 300);
+                    game.batch.end();
+
+                }
+                if(gamecam.position.x <gymSimulator.V_WIDTH - gymSimulator.V_WIDTH/6){
+                    game.setScreen(new ScoresState(game, manager));
+                    dispose();
+                }
+
             }
         hud.stage.draw();
         }

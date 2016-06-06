@@ -32,7 +32,10 @@ public class AbsGameState implements Screen {
     private Texture bro4;
     private Texture bro5;
     private Texture bro6;
+    private Texture background;
     private Image imageBackToMenu;
+    private Texture play;
+    private Image playButton;
     private gymSimulator game;
     public Stage stage;
     public AssetManager manager;
@@ -75,6 +78,8 @@ public class AbsGameState implements Screen {
             manager.load("bro4.png", Texture.class);
             manager.load("bro5.png", Texture.class);
             manager.load("bro6.png", Texture.class);
+            manager.load("playButton.png", Texture.class);
+            manager.load("background2.png", Texture.class);
             manager.finishLoading();
             bro1 = manager.get("bro1.png", Texture.class);
             bro2 = manager.get("bro2.png", Texture.class);
@@ -83,11 +88,24 @@ public class AbsGameState implements Screen {
             bro5 = manager.get("bro5.png", Texture.class);
             bro6 = manager.get("bro6.png", Texture.class);
             bar = manager.get("bar.png", Texture.class);
+            play = manager.get("playButton.png", Texture.class);
+            background = manager.get("background2.png", Texture.class);
             trace = manager.get("trace.png", Texture.class);
             backToMenu = manager.get("backButton.png", Texture.class);
             imageBackToMenu = new Image(backToMenu);
+            playButton = new Image(play);
+
+            playButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    absLogic.gameStart=true;
+                }
+
+            });
+
             Gdx.input.setInputProcessor(stage);
             stage.addActor(imageBackToMenu);
+            stage.addActor(playButton);
             loaded=true;
         }else {
             update(Gdx.graphics.getDeltaTime());
@@ -101,6 +119,7 @@ public class AbsGameState implements Screen {
 
 
             spriteBatch.begin();
+            spriteBatch.draw(background, 0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
             spriteBatch.draw(trace, absLogic.trace_x, absLogic.trace_y, 20, 40);
             imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
@@ -127,6 +146,10 @@ public class AbsGameState implements Screen {
                     spriteBatch.draw(bro2, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
                 else if(absLogic.delta > 45)
                     spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
+            }
+            if(absLogic.gameStart==false){
+                playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
+                spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
             }
             spriteBatch.end();
         }

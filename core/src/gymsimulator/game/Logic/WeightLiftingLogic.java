@@ -34,13 +34,14 @@ public class WeightLiftingLogic {
     public int leftArmSize=200;
     public int rightArmSize=200;
     public float weightRotation=0;
+    public boolean gameStart=false;
 
 
 
     public WeightLiftingLogic()
     {
         prefs = Gdx.app.getPreferences("GymHighScores");
-        highscoreLifting = prefs.getInteger("highscoreTreadmill");
+        highscoreLifting = prefs.getInteger("highscoreWeight");
 
 
         changeBarDirection = 1;
@@ -165,7 +166,7 @@ public class WeightLiftingLogic {
     {
         if(!scoresSaved)
             if(score > highscoreLifting) {
-                prefs.putInteger("highscoreTreadmill", score);
+                prefs.putInteger("highscoreWeight", score);
                 prefs.flush();
             }
         scoresSaved = true;
