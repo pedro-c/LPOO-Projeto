@@ -32,7 +32,8 @@ public class WeightLiftingLogic implements Input.TextInputListener {
     public boolean startTimer;
     public int highscoreLifting = 0;
     public boolean scoresSaved = false;
-    private float traceSpeed;
+    public float traceSpeed;
+    public double accInput;
     public boolean lifted = false;
     public int leftArmSize=200;
     public int rightArmSize=200;
@@ -79,6 +80,7 @@ public class WeightLiftingLogic implements Input.TextInputListener {
     }
     public int update(float delta) {
 
+        accInput = Gdx.input.getAccelerometerY();
         if(!endGame && gameStart) {
             if(trace_x-(Gdx.graphics.getWidth()/4)+ 5<statusBarMaxX/2)
                 weightRotation=trace_x/100;
@@ -172,7 +174,7 @@ public class WeightLiftingLogic implements Input.TextInputListener {
 
         double  mult = (double)score / 9 + 0.2;
 
-        double acc = ((Gdx.input.getAccelerometerY()) * mult);
+        double acc = accInput * mult;
 
         return acc;
     }
