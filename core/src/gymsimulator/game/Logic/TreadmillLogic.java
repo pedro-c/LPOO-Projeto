@@ -1,14 +1,17 @@
 package gymsimulator.game.Logic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
  * Created by pedro on 30/05/2016.
  */
-public class TreadmillLogic {
+public class TreadmillLogic implements Input.TextInputListener  {
 
     int rightScreen;
     public int score=0;
@@ -16,7 +19,7 @@ public class TreadmillLogic {
     public int timer=1000;
     public boolean endGame=false;
     public int highscoreTreadmill=0;
-    public boolean saveScores = false;
+    public boolean saveScores = true;
     Preferences prefs;
     public int foot1_x;
     public int foot1_y;
@@ -33,12 +36,14 @@ public class TreadmillLogic {
     public boolean foot3Clicked=false;
     public boolean foot4Clicked=false;
     public boolean footClick=false;
-    public int lowerFoot=1;
+    public int lowerFoot=2;
     public int falseFoot_xR;
     public int falseFoot_xL;
     public boolean gameReady=false;
     public boolean gameStart=false;
     public int deltaY=0;
+    public String userName="";
+    private FileHandle file;
 
 
 
@@ -55,27 +60,35 @@ public class TreadmillLogic {
         foot1_y=0;
         foot4_x=200+((Gdx.graphics.getWidth()-400)/2);
         foot4_y=Gdx.graphics.getHeight();
-        falseFoot_x=200+((Gdx.graphics.getWidth()-400)/2);
-        falseFoot_y=0;
+        falseFoot_x=200;
+        falseFoot_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
         falseFoot_xR=200+((Gdx.graphics.getWidth()-400)/2);
         falseFoot_xL=200;
 
     }
 
 
-    public int update(float dt){
-        if(startTimer==1 && !endGame)
-            if(timer<=0){
-                endGame=true;
-                return 0;
-            }
+    @Override
+    public void input (String text) {
+        this.userName=text;
+    }
 
-            if(gameStart)
-                timer--;
+    @Override
+    public void canceled () {
+
+    }
+
+
+    public int update(float dt){
+        if(timer<=0)
+            endGame=true;
+
+
         Random rn = new Random();
         int rand;
 
-        if(!endGame){
+        if(!endGame && gameStart){
+            timer--;
             if(footClick) {
                 if (deltaY < Gdx.graphics.getHeight() / 3) {
                     gameReady = false;
@@ -122,14 +135,6 @@ public class TreadmillLogic {
                     }
 
 
-
-
-
-                /*
-                foot1_y-=Gdx.graphics.getHeight() / 3;
-                foot2_y-=Gdx.graphics.getHeight() / 3;
-                foot3_y-=Gdx.graphics.getHeight() / 3;
-                foot4_y-=Gdx.graphics.getHeight() / 3;*/
 
                     if (foot1_y < 0) {
                         foot1_y = Gdx.graphics.getHeight();
@@ -178,11 +183,14 @@ public class TreadmillLogic {
 
 
         if (endGame==true) {
-            if (score > highscoreTreadmill) {
-                if (saveScores == false)
-                    prefs.putInteger("highscoreTreadmill", score);
+            if (score > highscoreTreadmill && saveScores) {
+                Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
+                Gdx.app.debug(userName, userName);
+                prefs.putInteger("highscoreTreadmill", score);
+                highscoreTreadmill=score;
                 prefs.flush();
-                saveScores = true;
+                saveScores=false;
+
             }
 
         }
@@ -191,5 +199,41 @@ public class TreadmillLogic {
         return 0;
 
     }
+
+    public void saveToFile(int score){
+        if(score > highscoreTreadmill){
+            String filename;
+            String weightHighScore;
+            String absHighScore;
+            String treadHighScore;
+            filename = "highscores.dat";
+            file = Gdx.files.local(filename);
+
+            if(file.exists()){
+                weightHighScore = file.readString();
+                absHighScore = file.readString();
+                treadHighScore = file.readString();
+
+                file.writeString(java.lang.String.format("%s",weightHighScore), false);
+                file.writeString(java.lang.String.format("%s",absHighScore), false);
+                file.writeString(java.lang.String.format("%s",((Integer)(score)).toString())+ " - "+userName, false);
+            }
+            else {
+                try {
+                    weightHighScore = " ";
+                    absHighScore = " ";
+                    treadHighScore = " ";
+                    file.file().createNewFile();
+                    file.writeString(java.lang.String.format("%s",weightHighScore), false);
+                    file.writeString(java.lang.String.format("%s",absHighScore), false);
+                    file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
 }

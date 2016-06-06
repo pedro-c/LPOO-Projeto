@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -37,6 +38,10 @@ public class ScoresState implements Screen {
     private BitmapFont fontScore;
     private BitmapFont fontText;
     Preferences prefs;
+    private FileHandle file;
+    String weightHighScore;
+    String absHighScore;
+    String treadHighScore;
 
     public ScoresState(gymSimulator game, AssetManager manager){
         this.game=game;
@@ -50,6 +55,15 @@ public class ScoresState implements Screen {
         fontScore.getData().setScale(6);
         fontText = new BitmapFont();
         fontText.getData().setScale(3);
+        String filename;
+        filename = "highscores.dat";
+        file = Gdx.files.local(filename);
+
+        if(file.exists()){
+            weightHighScore = file.readString();
+            absHighScore = file.readString();
+            treadHighScore = file.readString();
+        }
 
         //hud.setLabelPlay("Timer: " + ((Integer) ((absLogic.timer))).toString() + " Score: " + ((Integer) absLogic.score).toString() + "HighScore: " + ((Integer) absLogic.highscoreAbs).toString());
     }
@@ -101,9 +115,9 @@ public class ScoresState implements Screen {
             spriteBatch.draw(weight, Gdx.graphics.getWidth()-Gdx.graphics.getWidth()/4-250, Gdx.graphics.getHeight()/4, 500, 500);
             backButton.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
             spriteBatch.draw(backToMenu, Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4, 200, 200);
-            fontScore.draw(spriteBatch, ((Integer) (weightScore)).toString(),  Gdx.graphics.getWidth()-3*Gdx.graphics.getWidth()/4-100, Gdx.graphics.getHeight()/4+200);
-            fontScore.draw(spriteBatch, ((Integer) (runnerScore)).toString(),  Gdx.graphics.getWidth()-2*Gdx.graphics.getWidth()/4-100, Gdx.graphics.getHeight()/4+200);
-            fontScore.draw(spriteBatch, ((Integer) (absScore)).toString(),  Gdx.graphics.getWidth()-1*Gdx.graphics.getWidth()/4-100, Gdx.graphics.getHeight()/4+200);
+            fontScore.draw(spriteBatch, weightHighScore,  Gdx.graphics.getWidth()-3*Gdx.graphics.getWidth()/4-100, Gdx.graphics.getHeight()/4+200);
+            fontScore.draw(spriteBatch, treadHighScore,  Gdx.graphics.getWidth()-2*Gdx.graphics.getWidth()/4-100, Gdx.graphics.getHeight()/4+200);
+            fontScore.draw(spriteBatch, absHighScore,  Gdx.graphics.getWidth()-1*Gdx.graphics.getWidth()/4-100, Gdx.graphics.getHeight()/4+200);
             fontText.draw(spriteBatch, "WEIGHT BALANCING",  Gdx.graphics.getWidth()-3*Gdx.graphics.getWidth()/4-200, Gdx.graphics.getHeight()/4);
             fontText.draw(spriteBatch, "TREADMILL",  Gdx.graphics.getWidth()-2*Gdx.graphics.getWidth()/4-120, Gdx.graphics.getHeight()/4);
             fontText.draw(spriteBatch, "WEIGHT LIFTING",  Gdx.graphics.getWidth()-1*Gdx.graphics.getWidth()/4-150, Gdx.graphics.getHeight()/4);

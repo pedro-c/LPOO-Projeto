@@ -39,7 +39,7 @@ public class MultiplayerLogic {
             endGame=true;
 
         if(!endGame) {
-            float delta = Gdx.graphics.getDeltaTime();
+            Gdx.graphics.getDeltaTime();
             if (playerRedStartDefend == true && deltaRcounter < 225) {
                 deltaRcounter++;
                 buttonRSsize++;
@@ -111,6 +111,7 @@ public class MultiplayerLogic {
     }
 
     public void playerRedAttacking(){
+        deltaSwitchFistR=0;
         if(!playerBlueDefending && !endGame){
             playerRedDAttacking=true;
         }
@@ -118,6 +119,7 @@ public class MultiplayerLogic {
 
     }
     public void playerBlueAttacking(){
+        deltaSwitchFistB=0;
         if(!playerRedDefending && !endGame){
             playerBlueAttacking=true;
         }

@@ -125,6 +125,7 @@ public class AbsGameState implements Screen {
                     absLogic.startTimer=true;
                     absLogic.gameStart=true;
                     absLogic.endGame=false;
+                    absLogic.saveScores=true;
 
                 }
 

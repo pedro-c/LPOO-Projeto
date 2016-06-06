@@ -1,12 +1,16 @@
 package gymsimulator.game.Logic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
+
+import java.io.IOException;
 
 /**
  * Created by pedro on 31/05/2016.
  */
-public class AbsLogic {
+public class AbsLogic implements Input.TextInputListener {
 
     public int trace_x= (Gdx.graphics.getWidth()/2)-10;
     public int trace_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6;
@@ -27,6 +31,8 @@ public class AbsLogic {
     public int delta = 0;
     public boolean lift = false;
     public boolean gameStart = false;
+    public String userName="";
+    private FileHandle file;
 
     public AbsLogic(){
         endGame=false;
@@ -34,6 +40,15 @@ public class AbsLogic {
         highscoreAbs=prefs.getInteger("highscoreAbs");
     }
 
+    @Override
+    public void input (String text) {
+        this.userName=text;
+    }
+
+    @Override
+    public void canceled () {
+
+    }
     public int update(float dt) {
 
         delta++;
@@ -76,13 +91,52 @@ public class AbsLogic {
         if(timer <= 0){
             endGame=true;
             if(score > highscoreAbs){
-                if(saveScores==false)
-                prefs.putInteger("highscoreAbs", score);
-                prefs.flush();
-                saveScores=true;
+                if(saveScores==false) {
+                    Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
+                    Gdx.app.debug(userName, userName);
+                    prefs.putInteger("highscoreAbs", score);
+                    prefs.flush();
+                    saveToFile(score);
+                    saveScores=true;
+                }
+
             }
 
         }
         return 0;
+    }
+
+    public void saveToFile(int score){
+        String filename;
+        String weightHighScore;
+        String absHighScore;
+        String treadHighScore;
+        filename = "highscores.dat";
+        file = Gdx.files.local(filename);
+
+        if(file.exists()){
+            weightHighScore = file.readString();
+            absHighScore = file.readString();
+            treadHighScore = file.readString();
+
+            file.writeString(java.lang.String.format("%s",weightHighScore), false);
+            file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
+            file.writeString(java.lang.String.format("%s",treadHighScore), false);
+
+        }
+        else {
+            try {
+                weightHighScore = " ";
+                absHighScore = " ";
+                treadHighScore = " ";
+                file.file().createNewFile();
+                file.writeString(java.lang.String.format("%s",weightHighScore), false);
+                file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
+                file.writeString(java.lang.String.format("%s",treadHighScore), false);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

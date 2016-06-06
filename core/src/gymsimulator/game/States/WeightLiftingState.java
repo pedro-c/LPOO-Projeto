@@ -129,8 +129,11 @@ public class WeightLiftingState implements Screen  {
                         wtLogic.score = 0;
                         wtLogic.incScore = false;
                         wtLogic.timer=8*100;
-                        wtLogic. liftTimer = 150;
-                        wtLogic. startTimer= false;
+                        wtLogic.liftTimer = 150;
+                        wtLogic.startTimer= false;
+                        wtLogic.endGame=false;
+                        wtLogic.saveScores=true;
+                        wtLogic.trace_x = wtLogic.statusGreenBarMaxX - (wtLogic.statusGreenBarMaxX - wtLogic.statusGreenBarMinX)/2 ;
                     }
 
                 });
@@ -166,7 +169,7 @@ public class WeightLiftingState implements Screen  {
                     playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                     spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
                 }
-                if(wtLogic.endGame==true){
+                if(wtLogic.endGame==true ){
                     replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
                     spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
                     imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);

@@ -1,22 +1,25 @@
 package gymsimulator.game.Logic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 
+import java.io.IOException;
 import java.util.Random;
 
 
 /**
  * Created by Tiago on 31/05/2016.
  */
-public class WeightLiftingLogic {
+public class WeightLiftingLogic implements Input.TextInputListener {
 
     Preferences prefs;
 
     public static final long[] loseVibratePattern = new long[] {0, 100, 30, 100};
     public int trace_x;
     public int trace_y;
-    public boolean endGame;
+    public boolean endGame=false;
     public int changeBarDirection;
     public int statusBarMaxX;
     public int statusBarMinX;
@@ -35,6 +38,9 @@ public class WeightLiftingLogic {
     public int rightArmSize=200;
     public float weightRotation=0;
     public boolean gameStart=false;
+    public boolean saveScores=false;
+    public String userName="";
+    private FileHandle file;
 
 
 
@@ -52,7 +58,7 @@ public class WeightLiftingLogic {
 
         Random rand = new Random();
 
-        trace_x = rand.nextInt(statusBarMaxX - statusBarMinX + 1) + statusBarMinX;
+        trace_x = statusGreenBarMaxX - (statusGreenBarMaxX - statusGreenBarMinX)/2 ;
         trace_y = Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6;
 
         score = 0;
@@ -62,9 +68,18 @@ public class WeightLiftingLogic {
         startTimer= false;
     }
 
+    @Override
+    public void input (String text) {
+        this.userName=text;
+    }
+
+    @Override
+    public void canceled () {
+
+    }
     public int update(float delta) {
 
-        if(!endGame) {
+        if(!endGame && gameStart) {
             if(trace_x-(Gdx.graphics.getWidth()/4)+ 5<statusBarMaxX/2)
                 weightRotation=trace_x/100;
             else
@@ -165,11 +180,50 @@ public class WeightLiftingLogic {
     public void saveScore()
     {
         if(!scoresSaved)
-            if(score > highscoreLifting) {
+            if(score > highscoreLifting && saveScores) {
+                Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
+                Gdx.app.debug(userName, userName);
+                prefs.putInteger("highscoreAbs", score);
+                prefs.flush();
+                saveScores=true;
                 prefs.putInteger("highscoreWeight", score);
+                saveToFile(score);
                 prefs.flush();
             }
         scoresSaved = true;
 
+    }
+
+    public void saveToFile(int score){
+        String filename;
+        String weightHighScore;
+        String absHighScore;
+        String treadHighScore;
+        filename = "highscores.dat";
+        file = Gdx.files.local(filename);
+
+        if(file.exists()){
+            weightHighScore = file.readString();
+            absHighScore = file.readString();
+            treadHighScore = file.readString();
+
+            file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
+            file.writeString(java.lang.String.format("%s",absHighScore), false);
+            file.writeString(java.lang.String.format("%s",treadHighScore), false);
+            }
+        else {
+            try {
+                weightHighScore = " ";
+                absHighScore = " ";
+                treadHighScore = " ";
+                file.file().createNewFile();
+                file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
+                file.writeString(java.lang.String.format("%s",absHighScore), false);
+                file.writeString(java.lang.String.format("%s",treadHighScore), false);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

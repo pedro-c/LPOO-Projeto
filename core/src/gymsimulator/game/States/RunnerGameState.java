@@ -45,11 +45,14 @@ public class RunnerGameState implements Screen {
     Image imageBackToMenu;
     private Texture play;
     private Image playButton;
+    private Texture shadowUp;
+    private Texture shadowDown;
     private Texture replay;
     private Image replayButton;
     public Stage stage;
     public AssetManager manager;
     public boolean loaded=false;
+
 
 
     public RunnerGameState(gymSimulator game, AssetManager manager) {
@@ -63,6 +66,7 @@ public class RunnerGameState implements Screen {
         tmLogic.update(dt);
         handleInput(dt);
     }
+
 
     @Override
     public void render(float delta) {
@@ -79,6 +83,8 @@ public class RunnerGameState implements Screen {
             manager.load("backButton.png", Texture.class);
             manager.load("playButton.png", Texture.class);
             manager.load("replayButton.png", Texture.class);
+            manager.load("shadowUp.png", Texture.class);
+            manager.load("shadowDown.png", Texture.class);
             manager.finishLoading();
             walkSheet = manager.get("flooranimation2.png", Texture.class);
             footPrintR = manager.get("footprintR.png", Texture.class);
@@ -88,6 +94,8 @@ public class RunnerGameState implements Screen {
             backToMenu = manager.get("backButton.png", Texture.class);
             play = manager.get("playButton.png", Texture.class);
             replay = manager.get("replayButton.png", Texture.class);
+            shadowUp = manager.get("shadowUp.png", Texture.class);
+            shadowDown = manager.get("shadowDown.png", Texture.class);
 
             playButton = new Image(play);
             replayButton = new Image(replay);
@@ -109,9 +117,8 @@ public class RunnerGameState implements Screen {
                     tmLogic.startTimer=0;
                     tmLogic.timer=1000;
                     tmLogic.endGame=false;
-                    tmLogic.highscoreTreadmill=0;
-                    tmLogic.saveScores = false;
-                    tmLogic.lowerFoot=1;
+                    tmLogic.saveScores = true;
+                    tmLogic.lowerFoot=2;
                     tmLogic.deltaY=0;
                     tmLogic.foot1_x=200;
                     tmLogic.foot3_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3;
@@ -121,8 +128,8 @@ public class RunnerGameState implements Screen {
                     tmLogic.foot1_y=0;
                     tmLogic.foot4_x=200+((Gdx.graphics.getWidth()-400)/2);
                     tmLogic.foot4_y=Gdx.graphics.getHeight();
-                    tmLogic.falseFoot_x=200+((Gdx.graphics.getWidth()-400)/2);
-                    tmLogic.falseFoot_y=0;
+                    tmLogic.falseFoot_x=200;
+                    tmLogic.falseFoot_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
                     tmLogic.falseFoot_xR=200+((Gdx.graphics.getWidth()-400)/2);
                     tmLogic.falseFoot_xL=200;
                 }
@@ -235,6 +242,9 @@ public class RunnerGameState implements Screen {
                 spriteBatch.draw(falseFootPrintL, tmLogic.falseFoot_xL, tmLogic.foot4_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
 
             }
+            spriteBatch.draw(shadowUp, 200, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3, (Gdx.graphics.getWidth()-400), Gdx.graphics.getHeight()/3);
+            spriteBatch.draw(shadowDown, 200, 0, (Gdx.graphics.getWidth()-400), Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3);
+
             if(tmLogic.gameStart==false){
                 playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
@@ -276,7 +286,8 @@ public class RunnerGameState implements Screen {
         imageBackToMenu.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-
+                if(tmLogic.endGame)
+                    tmLogic.saveToFile(tmLogic.score);
                 game.setScreen(new MainMenu(game, manager));
                 dispose();
             }
@@ -286,11 +297,10 @@ public class RunnerGameState implements Screen {
         foot1.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(tmLogic.lowerFoot != 1)
-                    tmLogic.endGame=true;
-                tmLogic.footClick=true;
-                tmLogic.foot1Clicked=true;
-
+                if(tmLogic.lowerFoot == 1) {
+                    tmLogic.footClick = true;
+                    tmLogic.foot1Clicked = true;
+                }
             }
 
         });
@@ -298,11 +308,10 @@ public class RunnerGameState implements Screen {
         foot2.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(tmLogic.lowerFoot != 2)
-                    tmLogic.endGame=true;
-                tmLogic.footClick=true;
-                tmLogic.foot2Clicked=true;
-
+               if(tmLogic.lowerFoot == 2) {
+                   tmLogic.footClick = true;
+                   tmLogic.foot2Clicked = true;
+               }
             }
 
         });
@@ -310,11 +319,10 @@ public class RunnerGameState implements Screen {
         foot3.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(tmLogic.lowerFoot != 3)
-                    tmLogic.endGame=true;
-                tmLogic.footClick=true;
-                tmLogic.foot3Clicked=true;
-
+                if(tmLogic.lowerFoot == 3){
+                    tmLogic.footClick=true;
+                    tmLogic.foot3Clicked=true;
+                }
             }
 
         });
@@ -322,10 +330,11 @@ public class RunnerGameState implements Screen {
         foot4.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(tmLogic.lowerFoot != 4)
-                    tmLogic.endGame=true;
-                tmLogic.footClick=true;
-                tmLogic.foot4Clicked=true;
+              if(tmLogic.lowerFoot == 4){
+                    tmLogic.footClick=true;
+                    tmLogic.foot4Clicked=true;
+                }
+
             }
 
         });

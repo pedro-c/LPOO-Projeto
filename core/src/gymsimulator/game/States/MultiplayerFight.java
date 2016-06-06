@@ -1,6 +1,7 @@
 package gymsimulator.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,7 +19,7 @@ import gymsimulator.game.gymSimulator;
 /**
  * Created by pedro on 31/05/2016.
  */
-public class MultiplayerFight implements Screen {
+public class MultiplayerFight implements Screen{
 
 
     private final gymSimulator game;
@@ -74,7 +75,8 @@ public class MultiplayerFight implements Screen {
         hud = new Hud(game.batch);
         stage = new Stage();
         mpLogic = new MultiplayerLogic();
-
+        InputMultiplexer im = new InputMultiplexer();
+        Gdx.input.setInputProcessor(im);
 
 
 
