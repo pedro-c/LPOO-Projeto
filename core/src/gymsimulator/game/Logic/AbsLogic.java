@@ -33,7 +33,6 @@ public class AbsLogic{
     private java.lang.String userName;
     private boolean touched;
     private FileHandle file;
-    MyTextInputListener listener = new MyTextInputListener();
 
     public AbsLogic(){
         endGame=false;
@@ -128,7 +127,7 @@ public class AbsLogic{
 
     public void saveToFile(int score){
         //Gdx.input.getTextInput(listener, "Name", " ", " ");
-        userName=listener.returnUser();
+        //userName=listener.returnUser();
         String filename;
         filename = "absHighScores.txt";
         file = Gdx.files.local(filename);
