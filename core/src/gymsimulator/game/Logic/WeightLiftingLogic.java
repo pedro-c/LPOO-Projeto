@@ -180,10 +180,11 @@ public class WeightLiftingLogic implements Input.TextInputListener {
     public void saveScore()
     {
             if(score > highscoreLifting && saveScores) {
-                Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
-                prefs.putInteger("highscoreAbs", score);
+                //Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
+                prefs.putInteger("highscoreWeight", score);
                 prefs.flush();
                 saveScores=false;
+                highscoreLifting=score;
                 saveToFile(score);
             }
     }

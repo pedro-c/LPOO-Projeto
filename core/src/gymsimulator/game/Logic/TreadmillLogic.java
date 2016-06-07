@@ -182,7 +182,7 @@ public class TreadmillLogic implements Input.TextInputListener  {
 
         if (endGame==true) {
             if ((score > highscoreTreadmill) && saveScores) {
-                Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
+                //Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
                 prefs.putInteger("highscoreTreadmill", score);
                 prefs.flush();
                 saveToFile(score);

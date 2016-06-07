@@ -100,7 +100,7 @@ public class AbsLogic{
     }
 
     public void saveToFile(int score){
-        Gdx.input.getTextInput(listener, "Name", " ", " ");
+        //Gdx.input.getTextInput(listener, "Name", " ", " ");
         userName=listener.returnUser();
         String filename;
         filename = "absHighScores.txt";
