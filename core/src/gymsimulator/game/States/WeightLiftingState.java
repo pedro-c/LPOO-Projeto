@@ -119,7 +119,6 @@ public class WeightLiftingState implements Screen  {
                 replayButton.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        wtLogic.highscoreLifting = 0;
                         wtLogic.scoresSaved = false;
                         wtLogic.lifted = false;
                         wtLogic.leftArmSize=200;
@@ -134,6 +133,9 @@ public class WeightLiftingState implements Screen  {
                         wtLogic.endGame=false;
                         wtLogic.saveScores=true;
                         wtLogic.trace_x = wtLogic.statusGreenBarMaxX - (wtLogic.statusGreenBarMaxX - wtLogic.statusGreenBarMinX)/2 ;
+                        replayButton.setPosition(-500,-500);
+                        imageBackToMenu.setPosition(-500,-500);
+                        playButton.setPosition(-500,-500);
                     }
 
                 });

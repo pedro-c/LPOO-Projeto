@@ -1,7 +1,6 @@
 package gymsimulator.game.Logic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by pedro on 31/05/2016.
  */
-public class AbsLogic implements Input.TextInputListener {
+public class AbsLogic{
 
     public int trace_x= (Gdx.graphics.getWidth()/2)-10;
     public int trace_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6;
@@ -31,25 +30,20 @@ public class AbsLogic implements Input.TextInputListener {
     public int delta = 0;
     public boolean lift = false;
     public boolean gameStart = false;
-    public String userName="";
+    public java.lang.String userName;
     private FileHandle file;
+    MyTextInputListener listener = new MyTextInputListener();
 
     public AbsLogic(){
         endGame=false;
         prefs = Gdx.app.getPreferences("GymHighScores");
         highscoreAbs=prefs.getInteger("highscoreAbs");
-    }
 
-    @Override
-    public void input (String text) {
-        this.userName=text;
-    }
-
-    @Override
-    public void canceled () {
 
     }
+
     public int update(float dt) {
+
 
         delta++;
         if (!endGame && gameStart) {
@@ -92,11 +86,10 @@ public class AbsLogic implements Input.TextInputListener {
             endGame=true;
             if(score > highscoreAbs){
                 if(saveScores==false) {
-                    Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
-                    Gdx.app.debug(userName, userName);
                     prefs.putInteger("highscoreAbs", score);
                     prefs.flush();
-                    saveToFile(score);
+                    //saveToFile(score);
+                    highscoreAbs=score;
                     saveScores=true;
                 }
 
@@ -107,36 +100,24 @@ public class AbsLogic implements Input.TextInputListener {
     }
 
     public void saveToFile(int score){
+        Gdx.input.getTextInput(listener, "Name", " ", " ");
+        userName=listener.returnUser();
         String filename;
-        String weightHighScore;
-        String absHighScore;
-        String treadHighScore;
-        filename = "highscores.dat";
+        filename = "absHighScores.txt";
         file = Gdx.files.local(filename);
 
         if(file.exists()){
-            weightHighScore = file.readString();
-            absHighScore = file.readString();
-            treadHighScore = file.readString();
-
-            file.writeString(java.lang.String.format("%s",weightHighScore), false);
-            file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
-            file.writeString(java.lang.String.format("%s",treadHighScore), false);
-
+            file.writeString(((Integer)(score)).toString(), false);
         }
         else {
             try {
-                weightHighScore = " ";
-                absHighScore = " ";
-                treadHighScore = " ";
                 file.file().createNewFile();
-                file.writeString(java.lang.String.format("%s",weightHighScore), false);
-                file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
-                file.writeString(java.lang.String.format("%s",treadHighScore), false);
-
+                file.writeString(((Integer)(score)).toString(), false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
 }

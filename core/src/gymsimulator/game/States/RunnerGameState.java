@@ -132,6 +132,17 @@ public class RunnerGameState implements Screen {
                     tmLogic.falseFoot_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
                     tmLogic.falseFoot_xR=200+((Gdx.graphics.getWidth()-400)/2);
                     tmLogic.falseFoot_xL=200;
+                    tmLogic.gameReady=false;
+                    tmLogic.gameStart=true;
+                    tmLogic.foot1Clicked=false;
+                    tmLogic.foot2Clicked=false;
+                    tmLogic.foot3Clicked=false;
+                    tmLogic.foot4Clicked=false;
+                    tmLogic.footClick=false;
+                    tmLogic.userName="";
+                    replayButton.setPosition(-500,-500);
+                    imageBackToMenu.setPosition(-500,-500);
+                    playButton.setPosition(-500,-500);
                 }
 
             });
@@ -286,8 +297,6 @@ public class RunnerGameState implements Screen {
         imageBackToMenu.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                if(tmLogic.endGame)
-                    tmLogic.saveToFile(tmLogic.score);
                 game.setScreen(new MainMenu(game, manager));
                 dispose();
             }

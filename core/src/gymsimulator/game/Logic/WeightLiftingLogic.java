@@ -38,7 +38,7 @@ public class WeightLiftingLogic implements Input.TextInputListener {
     public int rightArmSize=200;
     public float weightRotation=0;
     public boolean gameStart=false;
-    public boolean saveScores=false;
+    public boolean saveScores=true;
     public String userName="";
     private FileHandle file;
 
@@ -179,47 +179,27 @@ public class WeightLiftingLogic implements Input.TextInputListener {
 
     public void saveScore()
     {
-        if(!scoresSaved)
             if(score > highscoreLifting && saveScores) {
                 Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
-                Gdx.app.debug(userName, userName);
                 prefs.putInteger("highscoreAbs", score);
                 prefs.flush();
-                saveScores=true;
-                prefs.putInteger("highscoreWeight", score);
+                saveScores=false;
                 saveToFile(score);
-                prefs.flush();
             }
-        scoresSaved = true;
-
     }
 
     public void saveToFile(int score){
         String filename;
-        String weightHighScore;
-        String absHighScore;
-        String treadHighScore;
-        filename = "highscores.dat";
+        filename = "weightHighScores.txt";
         file = Gdx.files.local(filename);
 
         if(file.exists()){
-            weightHighScore = file.readString();
-            absHighScore = file.readString();
-            treadHighScore = file.readString();
-
-            file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
-            file.writeString(java.lang.String.format("%s",absHighScore), false);
-            file.writeString(java.lang.String.format("%s",treadHighScore), false);
+            file.writeString(((Integer)(score)).toString(), false);
             }
         else {
             try {
-                weightHighScore = " ";
-                absHighScore = " ";
-                treadHighScore = " ";
                 file.file().createNewFile();
-                file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
-                file.writeString(java.lang.String.format("%s",absHighScore), false);
-                file.writeString(java.lang.String.format("%s",treadHighScore), false);
+                file.writeString(((Integer)(score)).toString(), false);
 
             } catch (IOException e) {
                 e.printStackTrace();
