@@ -81,103 +81,19 @@ public class TreadmillLogic implements Input.TextInputListener  {
         if(timer<=0)
             endGame=true;
 
-
-        Random rn = new Random();
-        int rand;
-
         if(!endGame && gameStart){
             timer--;
             if(footClick) {
-                if (deltaY < Gdx.graphics.getHeight() / 3) {
-                    gameReady = false;
-                    foot1_y -= Gdx.graphics.getHeight() / 9;
-                    foot2_y -= Gdx.graphics.getHeight() / 9;
-                    foot3_y -= Gdx.graphics.getHeight() / 9;
-                    foot4_y -= Gdx.graphics.getHeight() / 9;
-                    deltaY+=Gdx.graphics.getHeight() / 9;
-
-                } else {
-                    deltaY = 0;
-                    gameReady = true;
-                    footClick = false;
-                }
+                moveFeetDown();
                 if (gameReady) {
                     score++;
                     timer+=5;
-                    if (lowerFoot == 4)
-                        lowerFoot = 1;
-                    else
-                        lowerFoot++;
 
-
-                    if (lowerFoot == 1) {
-                        if (foot1_x == 200)
-                            falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        else
-                            falseFoot_x = 200;
-                    } else if (lowerFoot == 2) {
-                        if (foot2_x == 200)
-                            falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        else
-                            falseFoot_x = 200;
-                    } else if (lowerFoot == 3) {
-                        if (foot3_x == 200)
-                            falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        else
-                            falseFoot_x = 200;
-                    } else if (lowerFoot == 4) {
-                        if (foot4_x == 200)
-                            falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        else
-                            falseFoot_x = 200;
-                    }
-
-
-
-                    if (foot1_y < 0) {
-                        foot1_y = Gdx.graphics.getHeight();
-                        foot1Clicked = false;
-                        rand = rn.nextInt(2);
-                        if (rand == 1) {
-                            foot1_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        } else
-                            foot1_x = 200;
-                    }
-
-                    if (foot2_y < 0) {
-                        foot2_y = Gdx.graphics.getHeight();
-                        foot2Clicked = false;
-                        rand = rn.nextInt(2);
-                        if (rand == 1) {
-                            foot2_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        } else
-                            foot2_x = 200;
-                    }
-
-                    if (foot3_y < 0) {
-                        foot3_y = Gdx.graphics.getHeight();
-                        foot3Clicked = false;
-                        rand = rn.nextInt(2);
-                        if (rand == 1) {
-                            foot3_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        } else
-                            foot3_x = 200;
-                    }
-
-                    if (foot4_y < 0) {
-                        foot4_y = Gdx.graphics.getHeight();
-                        foot4Clicked = false;
-                        rand = rn.nextInt(2);
-                        if (rand == 1) {
-                            foot4_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
-                        } else
-                            foot4_x = 200;
-                    }
+                    setNewLowerFoot();
+                    setNewFeetPosition();
                 }
-
             }
         }
-
 
         if (endGame==true) {
             if ((score > highscoreTreadmill) && saveScores) {
@@ -194,6 +110,95 @@ public class TreadmillLogic implements Input.TextInputListener  {
 
         return 0;
 
+    }
+
+    public void setNewFeetPosition(){
+        Random rn = new Random();
+        int rand;
+        if (foot1_y < 0) {
+            foot1_y = Gdx.graphics.getHeight();
+            foot1Clicked = false;
+            rand = rn.nextInt(2);
+            if (rand == 1) {
+                foot1_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            } else
+                foot1_x = 200;
+        }
+
+        if (foot2_y < 0) {
+            foot2_y = Gdx.graphics.getHeight();
+            foot2Clicked = false;
+            rand = rn.nextInt(2);
+            if (rand == 1) {
+                foot2_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            } else
+                foot2_x = 200;
+        }
+
+        if (foot3_y < 0) {
+            foot3_y = Gdx.graphics.getHeight();
+            foot3Clicked = false;
+            rand = rn.nextInt(2);
+            if (rand == 1) {
+                foot3_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            } else
+                foot3_x = 200;
+        }
+
+        if (foot4_y < 0) {
+            foot4_y = Gdx.graphics.getHeight();
+            foot4Clicked = false;
+            rand = rn.nextInt(2);
+            if (rand == 1) {
+                foot4_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            } else
+                foot4_x = 200;
+        }
+    }
+
+    public void setNewLowerFoot(){
+        if (lowerFoot == 4)
+            lowerFoot = 1;
+        else
+            lowerFoot++;
+
+
+        if (lowerFoot == 1) {
+            if (foot1_x == 200)
+                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            else
+                falseFoot_x = 200;
+        } else if (lowerFoot == 2) {
+            if (foot2_x == 200)
+                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            else
+                falseFoot_x = 200;
+        } else if (lowerFoot == 3) {
+            if (foot3_x == 200)
+                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            else
+                falseFoot_x = 200;
+        } else if (lowerFoot == 4) {
+            if (foot4_x == 200)
+                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+            else
+                falseFoot_x = 200;
+        }
+    }
+    public void moveFeetDown(){
+        if (deltaY < Gdx.graphics.getHeight() / 3) {
+            gameReady = false;
+            foot1_y -= Gdx.graphics.getHeight() / 9;
+            foot2_y -= Gdx.graphics.getHeight() / 9;
+            foot3_y -= Gdx.graphics.getHeight() / 9;
+            foot4_y -= Gdx.graphics.getHeight() / 9;
+            deltaY+=Gdx.graphics.getHeight() / 9;
+
+        } else {
+            deltaY = 0;
+            gameReady = true;
+            footClick = false;
+        }
     }
 
     public void saveToFile(int score){
