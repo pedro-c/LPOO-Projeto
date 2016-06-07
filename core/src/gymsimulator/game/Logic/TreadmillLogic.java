@@ -19,6 +19,8 @@ public class TreadmillLogic {
     private int highscoreTreadmill;
     private boolean saveScores = true;
     Preferences prefs;
+    private int height;
+    private int width;
     private int foot1_x;
     private int foot1_y;
     private int foot2_x;
@@ -51,17 +53,19 @@ public class TreadmillLogic {
         prefs = Gdx.app.getPreferences("GymHighScores");
         highscoreTreadmill=prefs.getInteger("highscoreTreadmill");
 
+        height = Gdx.graphics.getHeight();
+        width = Gdx.graphics.getWidth();
         foot1_x=200;
-        foot3_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3;
-        foot2_x=200+((Gdx.graphics.getWidth()-400)/2);
-        foot2_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
+        foot3_y=height-height/3;
+        foot2_x=200+((width-400)/2);
+        foot2_y=height-2*height/3;
         foot3_x=200;
         foot1_y=0;
-        foot4_x=200+((Gdx.graphics.getWidth()-400)/2);
-        foot4_y=Gdx.graphics.getHeight();
+        foot4_x=200+((width-400)/2);
+        foot4_y=height;
         falseFoot_x=200;
-        falseFoot_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
-        falseFoot_xR=200+((Gdx.graphics.getWidth()-400)/2);
+        falseFoot_y=height-2*height/3;
+        falseFoot_xR=200+((width-400)/2);
         falseFoot_xL=200;
 
     }
@@ -115,41 +119,41 @@ public class TreadmillLogic {
         Random rn = new Random();
         int rand;
         if (foot1_y < 0) {
-            foot1_y = Gdx.graphics.getHeight();
+            foot1_y = height;
             foot1Clicked = false;
             rand = rn.nextInt(2);
             if (rand == 1) {
-                foot1_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                foot1_x = 200 + ((width - 400) / 2);
             } else
                 foot1_x = 200;
         }
 
         if (foot2_y < 0) {
-            foot2_y = Gdx.graphics.getHeight();
+            foot2_y = height;
             foot2Clicked = false;
             rand = rn.nextInt(2);
             if (rand == 1) {
-                foot2_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                foot2_x = 200 + ((width - 400) / 2);
             } else
                 foot2_x = 200;
         }
 
         if (foot3_y < 0) {
-            foot3_y = Gdx.graphics.getHeight();
+            foot3_y = height;
             foot3Clicked = false;
             rand = rn.nextInt(2);
             if (rand == 1) {
-                foot3_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                foot3_x = 200 + ((width - 400) / 2);
             } else
                 foot3_x = 200;
         }
 
         if (foot4_y < 0) {
-            foot4_y = Gdx.graphics.getHeight();
+            foot4_y = height;
             foot4Clicked = false;
             rand = rn.nextInt(2);
             if (rand == 1) {
-                foot4_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                foot4_x = 200 + ((width - 400) / 2);
             } else
                 foot4_x = 200;
         }
@@ -167,22 +171,22 @@ public class TreadmillLogic {
 
         if (lowerFoot == 1) {
             if (foot1_x == 200)
-                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                falseFoot_x = 200 + ((width - 400) / 2);
             else
                 falseFoot_x = 200;
         } else if (lowerFoot == 2) {
             if (foot2_x == 200)
-                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                falseFoot_x = 200 + ((width - 400) / 2);
             else
                 falseFoot_x = 200;
         } else if (lowerFoot == 3) {
             if (foot3_x == 200)
-                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                falseFoot_x = 200 + ((width - 400) / 2);
             else
                 falseFoot_x = 200;
         } else if (lowerFoot == 4) {
             if (foot4_x == 200)
-                falseFoot_x = 200 + ((Gdx.graphics.getWidth() - 400) / 2);
+                falseFoot_x = 200 + ((width - 400) / 2);
             else
                 falseFoot_x = 200;
         }
@@ -192,13 +196,13 @@ public class TreadmillLogic {
      * Creates the animation by moving the feet down
      */
     public void moveFeetDown(){
-        if (deltaY < Gdx.graphics.getHeight() / 3) {
+        if (deltaY < height / 3) {
             gameReady = false;
-            foot1_y -= Gdx.graphics.getHeight() / 9;
-            foot2_y -= Gdx.graphics.getHeight() / 9;
-            foot3_y -= Gdx.graphics.getHeight() / 9;
-            foot4_y -= Gdx.graphics.getHeight() / 9;
-            deltaY+=Gdx.graphics.getHeight() / 9;
+            foot1_y -= height / 9;
+            foot2_y -= height / 9;
+            foot3_y -= height / 9;
+            foot4_y -= height / 9;
+            deltaY += height / 9;
 
         } else {
             deltaY = 0;
