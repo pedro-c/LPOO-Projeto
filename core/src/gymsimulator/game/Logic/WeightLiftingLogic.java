@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Created by Tiago on 31/05/2016.
  */
-public class WeightLiftingLogic implements Input.TextInputListener {
+public class WeightLiftingLogic  {
 
     Preferences prefs;
 
@@ -42,7 +42,9 @@ public class WeightLiftingLogic implements Input.TextInputListener {
     private String userName="";
     private FileHandle file;
 
-
+    /**
+     * Constructor. Sets up variables
+     */
 
     public WeightLiftingLogic()
     {
@@ -68,16 +70,14 @@ public class WeightLiftingLogic implements Input.TextInputListener {
         startTimer= false;
     }
 
-    @Override
-    public void input (String text) {
-        this.userName=text;
-    }
 
-    @Override
-    public void canceled () {
 
-    }
-    public int update(float delta) {
+    /**
+     *
+     * @param delta Delta time
+     * @return
+     */
+    public void update(float delta) {
 
         accInput = Gdx.input.getAccelerometerY();
         if(!endGame && gameStart) {
@@ -94,9 +94,13 @@ public class WeightLiftingLogic implements Input.TextInputListener {
                 lifted = wait(delta);
         }
 
-        return 0;
     }
 
+    /**
+     *
+     * @param delta Delta time to be subtracted to the timer
+     * @return Whether or not the program should keep waiting
+     */
     public boolean wait(float delta){
 
         liftTimer -= delta;
@@ -112,6 +116,11 @@ public class WeightLiftingLogic implements Input.TextInputListener {
         return true;
     }
 
+    /**
+     *
+     * @param delta Delta time to be subtracted to the timer
+     * @return Whether or not the game is over
+     */
     public boolean lift(float delta){
         if (traceSpeed > 0)
             traceSpeed -= 0.5;
@@ -169,6 +178,11 @@ public class WeightLiftingLogic implements Input.TextInputListener {
         return false;
     }
 
+    /**
+     * Calculates acceleration of the trace
+     * @return Acceleration
+     */
+
     public double calcAcceleration(){
 
         double  mult = (double)score / 9 + 0.2;
@@ -177,6 +191,10 @@ public class WeightLiftingLogic implements Input.TextInputListener {
 
         return acc;
     }
+
+    /**
+     * Saves highscore if needed
+     */
 
     public void saveScore()
     {
@@ -209,37 +227,81 @@ public class WeightLiftingLogic implements Input.TextInputListener {
         }
     }
 
+    /**
+     * @return Lose vibrate Pattern
+     */
+
     public static long[] getLoseVibratePattern() {
         return loseVibratePattern;
     }
+
+    /**
+     *
+     * @return getter for Trace's X coordinatie
+     */
 
     public int getTrace_x() {
         return trace_x;
     }
 
+    /**
+     *
+     * @param trace_x New Trace's X coordinate value
+     */
+
     public void setTrace_x(int trace_x) {
         this.trace_x = trace_x;
     }
+
+    /**
+     *
+     * @return getter for Trace's Y coordinatie
+     */
 
     public int getTrace_y() {
         return trace_y;
     }
 
+    /**
+     *
+     * @param trace_y New Trace's Ycoordinate value
+     */
+
     public void setTrace_y(int trace_y) {
         this.trace_y = trace_y;
     }
+
+    /**
+     *
+     * @return endGame value
+     */
 
     public boolean isEndGame() {
         return endGame;
     }
 
+    /**
+     *
+     * @param endGame New endGame value
+     */
+
     public void setEndGame(boolean endGame) {
         this.endGame = endGame;
     }
 
+    /**
+     *
+     * @return BarDirection (-1 for left, 1 for right)
+     */
+
     public int getChangeBarDirection() {
         return changeBarDirection;
     }
+
+    /**
+     *
+     * @param changeBarDirection new BarDirection value
+     */
 
     public void setChangeBarDirection(int changeBarDirection) {
         this.changeBarDirection = changeBarDirection;
