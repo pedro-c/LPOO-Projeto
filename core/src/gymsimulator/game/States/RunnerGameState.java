@@ -103,7 +103,7 @@ public class RunnerGameState implements Screen {
             playButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    tmLogic.gameStart=true;
+                    tmLogic.setGameStart(true);
                 }
 
             });
@@ -113,33 +113,33 @@ public class RunnerGameState implements Screen {
             replayButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    tmLogic.score=0;
-                    tmLogic.startTimer=0;
-                    tmLogic.timer=1000;
-                    tmLogic.endGame=false;
-                    tmLogic.saveScores = true;
-                    tmLogic.lowerFoot=2;
-                    tmLogic.deltaY=0;
-                    tmLogic.foot1_x=200;
-                    tmLogic.foot3_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3;
-                    tmLogic.foot2_x=200+((Gdx.graphics.getWidth()-400)/2);
-                    tmLogic.foot2_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
-                    tmLogic.foot3_x=200;
-                    tmLogic.foot1_y=0;
-                    tmLogic.foot4_x=200+((Gdx.graphics.getWidth()-400)/2);
-                    tmLogic.foot4_y=Gdx.graphics.getHeight();
-                    tmLogic.falseFoot_x=200;
-                    tmLogic.falseFoot_y=Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3;
-                    tmLogic.falseFoot_xR=200+((Gdx.graphics.getWidth()-400)/2);
-                    tmLogic.falseFoot_xL=200;
-                    tmLogic.gameReady=false;
-                    tmLogic.gameStart=true;
-                    tmLogic.foot1Clicked=false;
-                    tmLogic.foot2Clicked=false;
-                    tmLogic.foot3Clicked=false;
-                    tmLogic.foot4Clicked=false;
-                    tmLogic.footClick=false;
-                    tmLogic.userName="";
+                    tmLogic.setScore(0);
+                    tmLogic.setStartTimer(0);
+                    tmLogic.setTimer(1000);
+                    tmLogic.setEndGame(false);
+                    tmLogic.setSaveScores(true);
+                    tmLogic.setLowerFoot(2);
+                    tmLogic.setDeltaY(0);
+                    tmLogic.setFoot1_x(200);
+                    tmLogic.setFoot3_y(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3);
+                    tmLogic.setFoot2_x(200+((Gdx.graphics.getWidth()-400)/2));
+                    tmLogic.setFoot2_y(Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3);
+                    tmLogic.setFoot3_x(200);
+                    tmLogic.setFoot1_y(0);
+                    tmLogic.setFoot4_x(200+((Gdx.graphics.getWidth()-400)/2));
+                    tmLogic.setFoot4_y(Gdx.graphics.getHeight());
+                    tmLogic.setFalseFoot_x(200);
+                    tmLogic.setFalseFoot_y(Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3);
+                    tmLogic.setFalseFoot_xR(200+((Gdx.graphics.getWidth()-400)/2));
+                    tmLogic.setFalseFoot_xL(200);
+                    tmLogic.setGameReady(false);
+                    tmLogic.setGameStart(true);
+                    tmLogic.setFoot1Clicked(false);
+                    tmLogic.setFoot2Clicked(false);
+                    tmLogic.setFoot3Clicked(false);
+                    tmLogic.setFoot4Clicked(false);
+                    tmLogic.setFootClick(false);
+                    tmLogic.setUserName("");
                     replayButton.setPosition(-500,-500);
                     imageBackToMenu.setPosition(-500,-500);
                     playButton.setPosition(-500,-500);
@@ -197,13 +197,13 @@ public class RunnerGameState implements Screen {
         }else{
             update(Gdx.graphics.getDeltaTime());
             float deltaTime = Gdx.graphics.getDeltaTime();
-            if(tmLogic.timer > 2000)
-                tmLogic.endGame=true;
-            if(tmLogic.endGame){
-                hud.setLabelPlay(" Score: " + ((Integer)(tmLogic.score)).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
+            if(tmLogic.getTimer() > 2000)
+                tmLogic.setEndGame(true);
+            if(tmLogic.isEndGame()){
+                hud.setLabelPlay(" Score: " + ((Integer)(tmLogic.getScore())).toString() +  "   HighScore: " + ((Integer)tmLogic.getHighscoreTreadmill()).toString());
                 hud.showLost(true);
             }else{
-                hud.setLabelPlay("Timer: " + ((Integer)tmLogic.timer).toString() + " Steps: " + ((Integer)tmLogic.score).toString() +  "   HighScore: " + ((Integer)tmLogic.highscoreTreadmill).toString());
+                hud.setLabelPlay("Timer: " + ((Integer)tmLogic.getTimer()).toString() + " Steps: " + ((Integer)tmLogic.getScore()).toString() +  "   HighScore: " + ((Integer)tmLogic.getHighscoreTreadmill()).toString());
                 hud.showLost(false);
             }
 
@@ -213,54 +213,54 @@ public class RunnerGameState implements Screen {
             spriteBatch.begin();
             spriteBatch.draw(currentFrame, 200, 0,Gdx.graphics.getWidth()-400,Gdx.graphics.getHeight());
 
-            if(tmLogic.foot1_x==200){
-                spriteBatch.draw(footPrintL, tmLogic.foot1_x, tmLogic.foot1_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintR, tmLogic.falseFoot_xR, tmLogic.foot1_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+            if(tmLogic.getFoot1_x()==200){
+                spriteBatch.draw(footPrintL, tmLogic.getFoot1_x(), tmLogic.getFoot1_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintR, tmLogic.getFalseFoot_xR(), tmLogic.getFoot1_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
             }
 
             else{
-                spriteBatch.draw(footPrintR, tmLogic.foot1_x, tmLogic.foot1_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintL, tmLogic.falseFoot_xL, tmLogic.foot1_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(footPrintR, tmLogic.getFoot1_x(), tmLogic.getFoot1_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintL, tmLogic.getFalseFoot_xL(), tmLogic.getFoot1_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
 
             }
-            if(tmLogic.foot2_x==200){
-                spriteBatch.draw(footPrintL, tmLogic.foot2_x, tmLogic.foot2_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintR, tmLogic.falseFoot_xR, tmLogic.foot2_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-            }
-
-            else{
-                spriteBatch.draw(footPrintR, tmLogic.foot2_x, tmLogic.foot2_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintL, tmLogic.falseFoot_xL, tmLogic.foot2_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-
-            }
-            if(tmLogic.foot3_x==200){
-                spriteBatch.draw(footPrintL, tmLogic.foot3_x, tmLogic.foot3_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintR, tmLogic.falseFoot_xR, tmLogic.foot3_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+            if(tmLogic.getFoot2_x()==200){
+                spriteBatch.draw(footPrintL, tmLogic.getFoot2_x(), tmLogic.getFoot2_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintR, tmLogic.getFalseFoot_xR(), tmLogic.getFoot2_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
             }
 
             else{
-                spriteBatch.draw(footPrintR, tmLogic.foot3_x, tmLogic.foot3_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintL, tmLogic.falseFoot_xL, tmLogic.foot3_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(footPrintR, tmLogic.getFoot2_x(), tmLogic.getFoot2_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintL, tmLogic.getFalseFoot_xL(), tmLogic.getFoot2_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
 
             }
-            if(tmLogic.foot4_x==200){
-                spriteBatch.draw(footPrintL, tmLogic.foot4_x, tmLogic.foot4_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintR, tmLogic.falseFoot_xR, tmLogic.foot4_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+            if(tmLogic.getFoot3_x()==200){
+                spriteBatch.draw(footPrintL, tmLogic.getFoot3_x(), tmLogic.getFoot3_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintR, tmLogic.getFalseFoot_xR(), tmLogic.getFoot3_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
             }
 
             else{
-                spriteBatch.draw(footPrintR, tmLogic.foot4_x, tmLogic.foot4_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
-                spriteBatch.draw(falseFootPrintL, tmLogic.falseFoot_xL, tmLogic.foot4_y,(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(footPrintR, tmLogic.getFoot3_x(), tmLogic.getFoot3_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintL, tmLogic.getFalseFoot_xL(), tmLogic.getFoot3_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+
+            }
+            if(tmLogic.getFoot4_x()==200){
+                spriteBatch.draw(footPrintL, tmLogic.getFoot4_x(), tmLogic.getFoot4_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintR, tmLogic.getFalseFoot_xR(), tmLogic.getFoot4_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+            }
+
+            else{
+                spriteBatch.draw(footPrintR, tmLogic.getFoot4_x(), tmLogic.getFoot4_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
+                spriteBatch.draw(falseFootPrintL, tmLogic.getFalseFoot_xL(), tmLogic.getFoot4_y(),(Gdx.graphics.getWidth()-400)/2,Gdx.graphics.getHeight()/3);
 
             }
             spriteBatch.draw(shadowUp, 200, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/3, (Gdx.graphics.getWidth()-400), Gdx.graphics.getHeight()/3);
             spriteBatch.draw(shadowDown, 200, 0, (Gdx.graphics.getWidth()-400), Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/3);
 
-            if(tmLogic.gameStart==false){
+            if(tmLogic.isGameStart()==false){
                 playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
             }
-            if(tmLogic.endGame==true){
+            if(tmLogic.isEndGame()==true){
                 replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
                 imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);
@@ -270,11 +270,11 @@ public class RunnerGameState implements Screen {
                 spriteBatch.draw(backToMenu, Gdx.graphics.getWidth()/16, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/4, 200, 200);
             }
 
-            foot1.setPosition(tmLogic.foot1_x, tmLogic.foot1_y);
-            foot2.setPosition(tmLogic.foot2_x, tmLogic.foot2_y);
-            foot3.setPosition(tmLogic.foot3_x, tmLogic.foot3_y);
-            foot4.setPosition(tmLogic.foot4_x, tmLogic.foot4_y);
-            falseFoot.setPosition(tmLogic.falseFoot_x,tmLogic.falseFoot_y);
+            foot1.setPosition(tmLogic.getFoot1_x(), tmLogic.getFoot1_y());
+            foot2.setPosition(tmLogic.getFoot2_x(), tmLogic.getFoot2_y());
+            foot3.setPosition(tmLogic.getFoot3_x(), tmLogic.getFoot3_y());
+            foot4.setPosition(tmLogic.getFoot4_x(), tmLogic.getFoot4_y());
+            falseFoot.setPosition(tmLogic.getFalseFoot_x(),tmLogic.getFalseFoot_y());
 
             spriteBatch.end();
         }
@@ -306,9 +306,9 @@ public class RunnerGameState implements Screen {
         foot1.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(tmLogic.lowerFoot == 1) {
-                    tmLogic.footClick = true;
-                    tmLogic.foot1Clicked = true;
+                if(tmLogic.getLowerFoot() == 1) {
+                    tmLogic.setFootClick(true);
+                    tmLogic.setFoot1Clicked(true);
                 }
             }
 
@@ -317,9 +317,9 @@ public class RunnerGameState implements Screen {
         foot2.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-               if(tmLogic.lowerFoot == 2) {
-                   tmLogic.footClick = true;
-                   tmLogic.foot2Clicked = true;
+               if(tmLogic.getLowerFoot() == 2) {
+                   tmLogic.setFootClick(true);
+                   tmLogic.setFoot2Clicked(true);
                }
             }
 
@@ -328,9 +328,9 @@ public class RunnerGameState implements Screen {
         foot3.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                if(tmLogic.lowerFoot == 3){
-                    tmLogic.footClick=true;
-                    tmLogic.foot3Clicked=true;
+                if(tmLogic.getLowerFoot() == 3){
+                    tmLogic.setFootClick(true);
+                    tmLogic.setFoot3Clicked(true);
                 }
             }
 
@@ -339,9 +339,9 @@ public class RunnerGameState implements Screen {
         foot4.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-              if(tmLogic.lowerFoot == 4){
-                    tmLogic.footClick=true;
-                    tmLogic.foot4Clicked=true;
+              if(tmLogic.getLowerFoot() == 4){
+                  tmLogic.setFootClick(true);
+                  tmLogic.setFoot4Clicked(true);
                 }
 
             }
@@ -351,7 +351,7 @@ public class RunnerGameState implements Screen {
         falseFoot.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                tmLogic.endGame=true;
+                tmLogic.setEndGame(true);
             }
 
         });
