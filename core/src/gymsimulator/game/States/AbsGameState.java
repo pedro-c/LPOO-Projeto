@@ -129,9 +129,8 @@ public class AbsGameState implements Screen{
                 public void clicked(InputEvent event, float x, float y){
                     absLogic.setScore(0);
                     absLogic.setIncScore(false);
-                    absLogic.setTimer(8000);
+                    absLogic.setTimer(800);
                     absLogic.setStartTimer(false);
-                    absLogic.setHighscoreAbs(0);
                     absLogic.setSaveScores(false);
                     absLogic.setDelta(0);
                     absLogic.setLift(false);
