@@ -100,7 +100,7 @@ public class MainMenu implements Screen {
                 });
                 break;
             case 3:
-                hud.setLabelPlay("PLAY WEIGHT LIFTING");
+                hud.setLabelPlay("PLAY WEIGHT LIFTING                              ");
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){

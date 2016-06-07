@@ -25,9 +25,17 @@ public class MultiplayerLogic {
     private int deltaSwitchFistR=0;
     private int deltaSwitchFistB=0;
 
+    /**
+     * Constructor. Sets up variables
+     */
     public MultiplayerLogic(){
 
     }
+
+    /**
+     * Updates the game stats
+     * @param dt delta time to be subtracted to the timer
+     */
 
     public int update(float dt) {
 
@@ -47,6 +55,9 @@ public class MultiplayerLogic {
         return 0;
     }
 
+    /**
+     * If the blue player is not defending sets the red player for attack
+     */
     public void playerRedAttacking(){
         deltaSwitchFistR=0;
         if(!playerBlueDefending && !endGame){
@@ -55,6 +66,9 @@ public class MultiplayerLogic {
 
 
     }
+    /**
+     * If the red player is not defending sets the blue player for attack
+     */
     public void playerBlueAttacking(){
         deltaSwitchFistB=0;
         if(!playerRedDefending && !endGame){
@@ -62,7 +76,9 @@ public class MultiplayerLogic {
         }
 
     }
-
+    /**
+     * Resizes the red shield shadow according to user input
+     */
     public void resizeRedShieldShadow(){
         if (playerRedStartDefend == true && deltaRcounter < 225) {
             deltaRcounter++;
@@ -76,6 +92,9 @@ public class MultiplayerLogic {
             playerRedDefending = false;
     }
 
+    /**
+     * Resizes the blue shield shadow according to user input
+     */
     public void resizeBlueShieldShadow(){
 
         if (playerBlueStartDefend == true && deltaBcounter < 225) {
@@ -90,7 +109,9 @@ public class MultiplayerLogic {
             playerBlueDefending = false;
 
     }
-
+    /**
+     * function that makes an attack from redPlayer, taking life from blue player if possible
+     */
     public void redPlayerAttacking(){
         if(switchFistR == false){
             if(deltaSwitchFistR==0){
@@ -114,7 +135,9 @@ public class MultiplayerLogic {
             }
         }
     }
-
+    /**
+     * function that makes an attack from bluePlayer, taking life from read player if possible
+     */
     public void bluePlayerAttacking(){
         if(switchFistB == false){
             if(deltaSwitchFistB==0){
@@ -139,124 +162,218 @@ public class MultiplayerLogic {
         }
     }
 
-
+    /**
+     * @param bool function that sets the player red defending flag
+     */
     public void setPlayerRedDefending(boolean bool){
         playerRedStartDefend=bool;
 
     }
+    /**
+     * @param bool function that sets the player blue defending flag
+     */
     public void setPlayerBlueDefending(boolean bool){
         playerBlueStartDefend=bool;
     }
 
-
+    /**
+     *
+     * @return blue player flag that tells if the player is defending
+     */
     public boolean isPlayerBlueStartDefend() {
         return playerBlueStartDefend;
     }
 
+    /**
+     *
+     * @param playerBlueStartDefend New Trace's Ycoordinate value
+     */
     public void setPlayerBlueStartDefend(boolean playerBlueStartDefend) {
         this.playerBlueStartDefend = playerBlueStartDefend;
     }
 
+    /**
+     *
+     * @return getter delta B counter
+     */
+
+
     public float getDeltaBcounter() {
         return deltaBcounter;
     }
-
+    /**
+     *
+     * @param deltaBcounter sets the delta b counter
+     */
     public void setDeltaBcounter(float deltaBcounter) {
         this.deltaBcounter = deltaBcounter;
     }
-
+    /**
+     *
+     * @return wheter the player red is defending
+     */
     public boolean isPlayerRedStartDefend() {
         return playerRedStartDefend;
     }
-
+    /**
+     *
+     * @param playerRedStartDefend sets the flag that tells if the player red is defending
+     */
     public void setPlayerRedStartDefend(boolean playerRedStartDefend) {
         this.playerRedStartDefend = playerRedStartDefend;
     }
-
+    /**
+     *
+     * @return wether the player blue is attacking
+     */
     public boolean isPlayerBlueAttacking() {
         return playerBlueAttacking;
     }
-
+    /**
+     *
+     * @param playerBlueAttacking sets the flag that tells if the player blue is attacking
+     */
     public void setPlayerBlueAttacking(boolean playerBlueAttacking) {
         this.playerBlueAttacking = playerBlueAttacking;
     }
-
+    /**
+     *
+     * @return wether the player blue is attacking
+     */
     public boolean isPlayerRedDAttacking() {
         return playerRedDAttacking;
     }
-
+    /**
+     *
+     * @param playerRedDAttacking sets the flag that tells if the player red is attacking
+     */
     public void setPlayerRedDAttacking(boolean playerRedDAttacking) {
         this.playerRedDAttacking = playerRedDAttacking;
     }
 
+    /**
+     *
+     * @return wether the player blue is defending
+     */
     public boolean isPlayerBlueDefending() {
         return playerBlueDefending;
     }
-
+    /**
+     *
+     * @return wether to switch fist
+     */
     public boolean isSwitchFistB() {
         return switchFistB;
     }
-
+    /**
+     *
+     * @param switchFistB sets the flag switchFist
+     */
     public void setSwitchFistB(boolean switchFistB) {
         this.switchFistB = switchFistB;
     }
-
+    /**
+     *
+     * @return wether the player red is defending
+     */
     public boolean isPlayerRedDefending() {
         return playerRedDefending;
     }
-
+    /**
+     *
+     * @return red delta counter
+     */
     public float getDeltaRcounter() {
         return deltaRcounter;
     }
-
+    /**
+     *
+     * @param deltaRcounter sets the red delta counter
+     */
     public void setDeltaRcounter(float deltaRcounter) {
         this.deltaRcounter = deltaRcounter;
     }
-
+    /**
+     *
+     * @return wether to switch fist
+     */
     public boolean isSwitchFistR() {
         return switchFistR;
     }
-
+    /**
+     *
+     * @param switchFistR sets the flag switchFist
+     */
     public void setSwitchFistR(boolean switchFistR) {
         this.switchFistR = switchFistR;
     }
-
+    /**
+     *
+     * @return red button size
+     */
     public int getButtonRSsize() {
         return buttonRSsize;
     }
-
+    /**
+     *
+     * @param buttonRSsize sets the red button size
+     */
     public void setButtonRSsize(int buttonRSsize) {
         this.buttonRSsize = buttonRSsize;
     }
-
+    /**
+     *
+     * @return blue player health
+     */
     public int getBlueHealth() {
         return blueHealth;
     }
-
+    /**
+     *
+     * @param blueHealth sets the blue player health
+     */
     public void setBlueHealth(int blueHealth) {
         this.blueHealth = blueHealth;
     }
-
+    /**
+     *
+     * @return blue button size
+     */
     public int getButtonBSsize() {
         return buttonBSsize;
     }
-
+    /**
+     *
+     * @param buttonBSsize sets the blue button size
+     */
     public void setButtonBSsize(int buttonBSsize) {
         this.buttonBSsize = buttonBSsize;
     }
-
+    /**
+     *
+     * @return red player health
+     */
     public int getRedHealth() {
         return redHealth;
     }
-
+    /**
+     *
+     * @param redHealth sets the red player health
+     */
     public void setRedHealth(int redHealth) {
         this.redHealth = redHealth;
     }
-
+    /**
+     *
+     * @return whether the game has ended
+     */
     public boolean isEndGame() {
         return endGame;
     }
-
+    /**
+     *
+     * @param endGame sets the endGame flag
+     */
     public void setEndGame(boolean endGame) {
         this.endGame = endGame;
     }
