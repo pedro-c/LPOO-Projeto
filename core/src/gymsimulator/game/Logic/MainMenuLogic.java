@@ -18,12 +18,21 @@ public class MainMenuLogic {
     private static final int MULTIPLAYER_FIGHT = 4;
     private int returnValue = 0;
 
-
+    /**
+     * Constructor
+     */
 
     public MainMenuLogic(){
 
     }
 
+    /**
+     * Updates main menu stats
+     * @param gamecam Game' camera
+     * @param dt Delta time
+     * @param hud Heads Up Display
+     * @return Integer representative of the next game to be played
+     */
 
     public int update(OrthographicCamera gamecam, float dt, Hud hud){
 
