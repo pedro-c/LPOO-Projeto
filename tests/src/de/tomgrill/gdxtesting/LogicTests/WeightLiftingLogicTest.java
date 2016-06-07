@@ -22,6 +22,7 @@ public class WeightLiftingLogicTest {
         Case.score = 9;
         Case.accInput = 3;
 
+
         double exp = 3.6;
         double act = Case.calcAcceleration();
 
@@ -45,6 +46,8 @@ public class WeightLiftingLogicTest {
 
         Case.trace_x = 1;
         Case.score = 5;
+        Case.statusBarMinX = 100;
+        Case.statusBarMaxX = 200;
         Case.liftTimer = 150;
 
         assertTrue(Case.wait(delta));
@@ -55,7 +58,7 @@ public class WeightLiftingLogicTest {
 
         assertEquals(Case.liftTimer, 130);
 
-
+        assertTrue((Case.trace_x) >= 100 && (Case.trace_x) <= 200);
 
     }
 }

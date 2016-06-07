@@ -119,7 +119,6 @@ public class WeightLiftingState implements Screen  {
                 replayButton.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        wtLogic.scoresSaved = false;
                         wtLogic.lifted = false;
                         wtLogic.leftArmSize=200;
                         wtLogic.rightArmSize=200;

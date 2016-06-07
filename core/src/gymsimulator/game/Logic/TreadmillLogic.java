@@ -173,7 +173,6 @@ public class TreadmillLogic implements Input.TextInputListener  {
                         } else
                             foot4_x = 200;
                     }
-                    //footClick = false;
                 }
 
             }

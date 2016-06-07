@@ -31,7 +31,6 @@ public class WeightLiftingLogic implements Input.TextInputListener {
     public int liftTimer;
     public boolean startTimer;
     public int highscoreLifting = 0;
-    public boolean scoresSaved = false;
     public float traceSpeed;
     public double accInput;
     public boolean lifted = false;
@@ -209,4 +208,6 @@ public class WeightLiftingLogic implements Input.TextInputListener {
             }
         }
     }
+
+    
 }

@@ -24,13 +24,14 @@ public class AbsLogic{
     public int timer=8*100;
     public boolean startTimer=false;
     public int highscoreAbs=0;
-    public boolean saveScores = false;
-    private int traceSpeed;
+    public boolean saveScores = true;
+    public int traceSpeed;
     Preferences prefs;
     public int delta = 0;
     public boolean lift = false;
     public boolean gameStart = false;
     public java.lang.String userName;
+    public boolean touched;
     private FileHandle file;
     MyTextInputListener listener = new MyTextInputListener();
 
@@ -43,60 +44,80 @@ public class AbsLogic{
     }
 
     public int update(float dt) {
-
-
         delta++;
+        touched = Gdx.input.justTouched();
+
+
         if (!endGame && gameStart) {
-            traceSpeed=20+2*score;
-            if (trace_x >= statusBarMaxX){
-                changeBarDirection = -1;
-                incScore=true;
-            }
+            barMovement();
 
-            else if (trace_x <= statusBarMinX){
-                changeBarDirection = 1;
-                incScore=true;
-            }
-
-
-            trace_x += traceSpeed * changeBarDirection;
-
-            if(Gdx.input.justTouched()){
-                startTimer=true;
-                if(trace_x > statusGreenBarMinX && trace_x < statusGreenBarMaxX){
-                    if(incScore == true){
-                        score++;
-                        incScore=false;
-                        timer+=50;
-                        lift=true;
-                        delta=0;
-
-                    }
-
-                }else{
-                    Gdx.input.vibrate(60);
-                    if(score > 0){
-                        score--;
-                    }
-                }
-            }
+            if(touched)
+                handleTouch();
         }
 
         if(timer <= 0){
             endGame=true;
-            if(score > highscoreAbs){
-                if(saveScores==false) {
-                    prefs.putInteger("highscoreAbs", score);
-                    prefs.flush();
-                    //saveToFile(score);
-                    highscoreAbs=score;
-                    saveScores=true;
-                }
+            saveScore();
+        }
+        return 0;
+    }
+
+    public void saveScore()
+    {
+        if(score > highscoreAbs && saveScores) {
+            prefs.putInteger("highscoreWeight", score);
+            prefs.flush();
+            saveScores=false;
+            highscoreAbs=score;
+            saveToFile(score);
+        }
+    }
+
+    public void handleTouch()
+    {
+
+        startTimer=true;
+        if(trace_x > statusGreenBarMinX && trace_x < statusGreenBarMaxX){
+            if(incScore == true){
+                score++;
+                incScore=false;
+                timer+=50;
+                lift=true;
+                delta=0;
 
             }
 
+        }else{
+            Gdx.input.vibrate(60);
+            if(score > 0){
+                score--;
+            }
         }
-        return 0;
+    }
+
+    public void barMovement()
+    {
+        traceSpeed = calcTraceSpeed();
+        if (trace_x >= statusBarMaxX){
+            trace_x = statusBarMaxX;
+            changeBarDirection = -1;
+            incScore=true;
+        }
+
+        else if (trace_x <= statusBarMinX){
+            trace_x = statusBarMinX;
+            changeBarDirection = 1;
+            incScore=true;
+        }
+
+        trace_x += traceSpeed * changeBarDirection;
+    }
+
+    public int calcTraceSpeed()
+    {
+        int speed = 20 + 2 * score;
+
+        return speed;
     }
 
     public void saveToFile(int score){
