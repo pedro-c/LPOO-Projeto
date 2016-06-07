@@ -70,9 +70,9 @@ public class AbsGameState implements Screen{
     @Override
     public void render(float delta) {
 
-        if(absLogic.endGame==true){
+        if(absLogic.isEndGame()==true){
             if(saveOnce==false){
-                absLogic.saveToFile(absLogic.score);
+                absLogic.saveToFile(absLogic.getScore());
                 saveOnce=true;
             }
         }
@@ -116,8 +116,8 @@ public class AbsGameState implements Screen{
             playButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    absLogic.gameStart=true;
-                    absLogic.startTimer=true;
+                    absLogic.setGameStart(true);
+                    absLogic.setStartTimer(true);
                 }
 
             });
@@ -127,18 +127,18 @@ public class AbsGameState implements Screen{
             replayButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    absLogic.score=0;
-                    absLogic.incScore = false;
-                    absLogic.timer=8*100;
-                    absLogic.startTimer=false;
-                    absLogic.highscoreAbs=0;
-                    absLogic.saveScores = false;
-                    absLogic.delta = 0;
-                    absLogic.lift = false;
-                    absLogic.startTimer=true;
-                    absLogic.gameStart=true;
-                    absLogic.endGame=false;
-                    absLogic.saveScores=true;
+                    absLogic.setScore(0);
+                    absLogic.setIncScore(false);
+                    absLogic.setTimer(8000);
+                    absLogic.setStartTimer(false);
+                    absLogic.setHighscoreAbs(0);
+                    absLogic.setSaveScores(false);
+                    absLogic.setDelta(0);
+                    absLogic.setLift(false);
+                    absLogic.setStartTimer(true);
+                    absLogic.setGameStart(true);
+                    absLogic.setEndGame(false);
+                    absLogic.setSaveScores(true);
                     replayButton.setPosition(-500,-500);
                     imageBackToMenu.setPosition(-500,-500);
                     playButton.setPosition(-500,-500);
@@ -156,47 +156,47 @@ public class AbsGameState implements Screen{
         }else {
             update(Gdx.graphics.getDeltaTime());
             float deltaTime = Gdx.graphics.getDeltaTime();
-            if (absLogic.startTimer == true) {
-                absLogic.timer -= deltaTime;
+            if (absLogic.isStartTimer() == true) {
+                absLogic.setTimer(absLogic.getTimer()-(int)deltaTime);
             }
 
 
-            hud.setLabelPlay("Timer: " + ((Integer) ((absLogic.timer))).toString() + " Score: " + ((Integer) absLogic.score).toString() + "HighScore: " + ((Integer) absLogic.highscoreAbs).toString());
+            hud.setLabelPlay("Timer: " + ((Integer) ((absLogic.getTimer()))).toString() + " Score: " + ((Integer) absLogic.getScore()).toString() + "HighScore: " + ((Integer) absLogic.getHighscoreAbs()).toString());
 
 
             spriteBatch.begin();
             spriteBatch.draw(background, 0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
-            spriteBatch.draw(trace, absLogic.trace_x, absLogic.trace_y, 20, 40);
+            spriteBatch.draw(trace, absLogic.getTrace_x(), absLogic.getTrace_y(), 20, 40);
             imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
 
-            if(absLogic.lift==false){
+            if(absLogic.isLift()==false){
                 spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
             }else{
-                if(absLogic.delta < 5)
+                if(absLogic.getDelta() < 5)
                     spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 10)
+                else if(absLogic.getDelta() < 10)
                     spriteBatch.draw(bro2, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 15)
+                else if(absLogic.getDelta() < 15)
                     spriteBatch.draw(bro3, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 20)
+                else if(absLogic.getDelta() < 20)
                     spriteBatch.draw(bro4, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 25)
+                else if(absLogic.getDelta() < 25)
                     spriteBatch.draw(bro5, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 30)
+                else if(absLogic.getDelta() < 30)
                     spriteBatch.draw(bro6, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 35)
+                else if(absLogic.getDelta() < 35)
                     spriteBatch.draw(bro5, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta < 45)
+                else if(absLogic.getDelta() < 45)
                     spriteBatch.draw(bro2, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.delta > 45)
+                else if(absLogic.getDelta() > 45)
                     spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
             }
-            if(absLogic.gameStart==false){
+            if(absLogic.isGameStart()==false){
                 playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
             }
-            if(absLogic.endGame==true){
+            if(absLogic.isEndGame()==true){
                 replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
                 imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);

@@ -1,7 +1,6 @@
 package gymsimulator.game.States;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -193,7 +192,7 @@ public class MultiplayerFight implements Screen{
 
                 @Override
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                    mpLogic.playerBlueAttacking=false;
+                    mpLogic.setPlayerBlueAttacking(false);
                 }
 
             });
@@ -208,7 +207,7 @@ public class MultiplayerFight implements Screen{
 
                 @Override
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-                    mpLogic.playerRedDAttacking=false;
+                    mpLogic.setPlayerRedDAttacking(false);
                 }
 
             });
@@ -256,15 +255,15 @@ public class MultiplayerFight implements Screen{
             spriteBatch.draw(shieldB, 50, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250, 250, 250 );
             spriteBatch.draw(shieldR, Gdx.graphics.getWidth()-300, Gdx.graphics.getHeight()/12, 250, 250 );
 
-            spriteBatch.draw(buttonShadow, 50+130-mpLogic.buttonBSsize/2, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250+125-mpLogic.buttonBSsize/2, mpLogic.buttonBSsize, mpLogic.buttonBSsize );
-            spriteBatch.draw(buttonShadow, Gdx.graphics.getWidth()-300+120-mpLogic.buttonRSsize/2, Gdx.graphics.getHeight()/12+125-mpLogic.buttonRSsize/2, mpLogic.buttonRSsize, mpLogic.buttonRSsize );
+            spriteBatch.draw(buttonShadow, 50+130-mpLogic.getButtonBSsize()/2, Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/12-250+125-mpLogic.getButtonBSsize()/2, mpLogic.getButtonBSsize(), mpLogic.getButtonBSsize() );
+            spriteBatch.draw(buttonShadow, Gdx.graphics.getWidth()-300+120-mpLogic.getButtonRSsize()/2, Gdx.graphics.getHeight()/12+125-mpLogic.getButtonBSsize()/2, mpLogic.getButtonBSsize(), mpLogic.getButtonBSsize() );
 
 
             spriteBatch.draw(healthBarRed, Gdx.graphics.getWidth()-400, 100, 50,Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12);
-            spriteBatch.draw(healthBarGreen, Gdx.graphics.getWidth()-400, 100, 50,  mpLogic.redHealth );
+            spriteBatch.draw(healthBarGreen, Gdx.graphics.getWidth()-400, 100, 50,  mpLogic.getRedHealth() );
 
             spriteBatch.draw(healthBarRed, 350, 100, 50,  Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12 );
-            spriteBatch.draw(healthBarGreen, 350, 100+(Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12-mpLogic.blueHealth), 50, mpLogic.blueHealth );
+            spriteBatch.draw(healthBarGreen, 350, 100+(Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12-mpLogic.getBlueHealth()), 50, mpLogic.getBlueHealth() );
 
             //draw Ring
             spriteBatch.draw(ring, 425, 0, Gdx.graphics.getWidth()-850,Gdx.graphics.getHeight());
@@ -273,13 +272,13 @@ public class MultiplayerFight implements Screen{
 
             //draw Player Blue
             spriteBatch.draw(BPlayer, 600, Gdx.graphics.getHeight()/2-125, 201, 252);
-            if(mpLogic.playerBlueDefending){
+            if(mpLogic.isPlayerBlueDefending()){
                 spriteBatch.draw(BLDD, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
                 spriteBatch.draw(BRDD, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
-            }else if(mpLogic.playerBlueAttacking && mpLogic.switchFistB==false){
+            }else if(mpLogic.isPlayerBlueAttacking() && mpLogic.isSwitchFistB()==false){
                 spriteBatch.draw(fistBLA, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
                 spriteBatch.draw(fistBRD, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
-            }else if(mpLogic.playerBlueAttacking && mpLogic.switchFistB==true){
+            }else if(mpLogic.isPlayerBlueAttacking() && mpLogic.isSwitchFistB()==true){
                 spriteBatch.draw(fistBLD, 630, Gdx.graphics.getHeight()/2-160+225, 232, 88);
                 spriteBatch.draw(fistBRA, 650, Gdx.graphics.getHeight()/2-150, 232, 88);
             }else{
@@ -289,13 +288,13 @@ public class MultiplayerFight implements Screen{
 
             //draw Player Red
             spriteBatch.draw(RPlayer, Gdx.graphics.getWidth()-800, Gdx.graphics.getHeight()/2-125, 201, 252);
-            if(mpLogic.playerRedDefending){
+            if(mpLogic.isPlayerRedDefending()){
                 spriteBatch.draw(RRDD, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
                 spriteBatch.draw(RLDD, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-155, 232, 88);
-            }else if(mpLogic.playerRedDAttacking && mpLogic.switchFistR==false){
+            }else if(mpLogic.isPlayerRedDAttacking() && mpLogic.isSwitchFistR()==false){
                 spriteBatch.draw(fistRLA, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
                 spriteBatch.draw(fistRRD, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-150, 232, 88);
-            }else if(mpLogic.playerRedDAttacking && mpLogic.switchFistR==true){
+            }else if(mpLogic.isPlayerRedDAttacking() && mpLogic.isSwitchFistR()==true){
                 spriteBatch.draw(fistRLD, Gdx.graphics.getWidth()-865, Gdx.graphics.getHeight()/2-175+252, 232, 88);
                 spriteBatch.draw(fistRRA, Gdx.graphics.getWidth()-890, Gdx.graphics.getHeight()/2-150, 232, 88);
             }else{
@@ -304,7 +303,7 @@ public class MultiplayerFight implements Screen{
             }
 
             //draw knockout banner
-            if(mpLogic.endGame){
+            if(mpLogic.isEndGame()){
                 spriteBatch.draw(knockout, Gdx.graphics.getWidth()/2-250, Gdx.graphics.getHeight()/2-175, 500, 350);
             }
 

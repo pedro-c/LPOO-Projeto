@@ -7,24 +7,21 @@ import com.badlogic.gdx.Gdx;
  */
 public class MultiplayerLogic {
 
-    public int blueHealth= Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12;
-    public int redHealth= Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12;
-    public boolean playerRedDefending=false;
-    public boolean playerBlueDefending=false;
-    public boolean playerRedDAttacking=false;
-    public boolean playerBlueAttacking=false;
-    public float deltaBcounter=0;
-    public float deltaRcounter=0;
-    public boolean playerRedStartDefend=false;
-    public boolean playerBlueStartDefend=false;
-    public int buttonRSsize=0;
-    public int buttonBSsize=0;
-    public boolean endGame=false;
-
-
-    public boolean switchFistR=false;
-    public boolean switchFistB=false;
-
+    private int blueHealth= Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12;
+    private int redHealth= Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12;
+    private boolean playerRedDefending=false;
+    private boolean playerBlueDefending=false;
+    private boolean playerRedDAttacking=false;
+    private boolean playerBlueAttacking=false;
+    private float deltaBcounter=0;
+    private float deltaRcounter=0;
+    private boolean playerRedStartDefend=false;
+    private boolean playerBlueStartDefend=false;
+    private int buttonRSsize=0;
+    private int buttonBSsize=0;
+    private boolean endGame=false;
+    private boolean switchFistR=false;
+    private boolean switchFistB=false;
     private int deltaSwitchFistR=0;
     private int deltaSwitchFistB=0;
 
@@ -135,6 +132,116 @@ public class MultiplayerLogic {
     }
 
 
+    public boolean isPlayerBlueStartDefend() {
+        return playerBlueStartDefend;
+    }
 
+    public void setPlayerBlueStartDefend(boolean playerBlueStartDefend) {
+        this.playerBlueStartDefend = playerBlueStartDefend;
+    }
+
+    public float getDeltaBcounter() {
+        return deltaBcounter;
+    }
+
+    public void setDeltaBcounter(float deltaBcounter) {
+        this.deltaBcounter = deltaBcounter;
+    }
+
+    public boolean isPlayerRedStartDefend() {
+        return playerRedStartDefend;
+    }
+
+    public void setPlayerRedStartDefend(boolean playerRedStartDefend) {
+        this.playerRedStartDefend = playerRedStartDefend;
+    }
+
+    public boolean isPlayerBlueAttacking() {
+        return playerBlueAttacking;
+    }
+
+    public void setPlayerBlueAttacking(boolean playerBlueAttacking) {
+        this.playerBlueAttacking = playerBlueAttacking;
+    }
+
+    public boolean isPlayerRedDAttacking() {
+        return playerRedDAttacking;
+    }
+
+    public void setPlayerRedDAttacking(boolean playerRedDAttacking) {
+        this.playerRedDAttacking = playerRedDAttacking;
+    }
+
+    public boolean isPlayerBlueDefending() {
+        return playerBlueDefending;
+    }
+
+    public boolean isSwitchFistB() {
+        return switchFistB;
+    }
+
+    public void setSwitchFistB(boolean switchFistB) {
+        this.switchFistB = switchFistB;
+    }
+
+    public boolean isPlayerRedDefending() {
+        return playerRedDefending;
+    }
+
+    public float getDeltaRcounter() {
+        return deltaRcounter;
+    }
+
+    public void setDeltaRcounter(float deltaRcounter) {
+        this.deltaRcounter = deltaRcounter;
+    }
+
+    public boolean isSwitchFistR() {
+        return switchFistR;
+    }
+
+    public void setSwitchFistR(boolean switchFistR) {
+        this.switchFistR = switchFistR;
+    }
+
+    public int getButtonRSsize() {
+        return buttonRSsize;
+    }
+
+    public void setButtonRSsize(int buttonRSsize) {
+        this.buttonRSsize = buttonRSsize;
+    }
+
+    public int getBlueHealth() {
+        return blueHealth;
+    }
+
+    public void setBlueHealth(int blueHealth) {
+        this.blueHealth = blueHealth;
+    }
+
+    public int getButtonBSsize() {
+        return buttonBSsize;
+    }
+
+    public void setButtonBSsize(int buttonBSsize) {
+        this.buttonBSsize = buttonBSsize;
+    }
+
+    public int getRedHealth() {
+        return redHealth;
+    }
+
+    public void setRedHealth(int redHealth) {
+        this.redHealth = redHealth;
+    }
+
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
 
 }

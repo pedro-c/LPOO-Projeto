@@ -11,27 +11,27 @@ import java.io.IOException;
  */
 public class AbsLogic{
 
-    public int trace_x= (Gdx.graphics.getWidth()/2)-10;
-    public int trace_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6;
-    public boolean endGame;
-    public int changeBarDirection=1;
-    public int statusBarMaxX=((Gdx.graphics.getWidth()/4) * 3)-25;
-    public int statusBarMinX=(Gdx.graphics.getWidth()/4)+ 5;
-    public int statusGreenBarMinX =  (Gdx.graphics.getWidth()/2)-(Gdx.graphics.getWidth()/16);
-    public int statusGreenBarMaxX = (Gdx.graphics.getWidth()/2)+(Gdx.graphics.getWidth()/16);
-    public int score=0;
-    public boolean incScore = false;
-    public int timer=8*100;
-    public boolean startTimer=false;
-    public int highscoreAbs=0;
-    public boolean saveScores = true;
-    public int traceSpeed;
+    private int trace_x= (Gdx.graphics.getWidth()/2)-10;
+    private int trace_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6;
+    private boolean endGame;
+    private int changeBarDirection=1;
+    private int statusBarMaxX=((Gdx.graphics.getWidth()/4) * 3)-25;
+    private int statusBarMinX=(Gdx.graphics.getWidth()/4)+ 5;
+    private int statusGreenBarMinX =  (Gdx.graphics.getWidth()/2)-(Gdx.graphics.getWidth()/16);
+    private int statusGreenBarMaxX = (Gdx.graphics.getWidth()/2)+(Gdx.graphics.getWidth()/16);
+    private int score=0;
+    private boolean incScore = false;
+    private int timer=8*100;
+    private boolean startTimer=false;
+    private int highscoreAbs=0;
+    private boolean saveScores = true;
+    private int traceSpeed;
     Preferences prefs;
-    public int delta = 0;
-    public boolean lift = false;
-    public boolean gameStart = false;
-    public java.lang.String userName;
-    public boolean touched;
+    private int delta = 0;
+    private boolean lift = false;
+    private boolean gameStart = false;
+    private java.lang.String userName;
+    private boolean touched;
     private FileHandle file;
     MyTextInputListener listener = new MyTextInputListener();
 
@@ -138,6 +138,174 @@ public class AbsLogic{
                 e.printStackTrace();
             }
         }
+    }
+
+    public int getTrace_x() {
+        return trace_x;
+    }
+
+    public void setTrace_x(int trace_x) {
+        this.trace_x = trace_x;
+    }
+
+    public int getTrace_y() {
+        return trace_y;
+    }
+
+    public void setTrace_y(int trace_y) {
+        this.trace_y = trace_y;
+    }
+
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
+    public int getChangeBarDirection() {
+        return changeBarDirection;
+    }
+
+    public void setChangeBarDirection(int changeBarDirection) {
+        this.changeBarDirection = changeBarDirection;
+    }
+
+    public int getStatusBarMaxX() {
+        return statusBarMaxX;
+    }
+
+    public void setStatusBarMaxX(int statusBarMaxX) {
+        this.statusBarMaxX = statusBarMaxX;
+    }
+
+    public int getStatusBarMinX() {
+        return statusBarMinX;
+    }
+
+    public void setStatusBarMinX(int statusBarMinX) {
+        this.statusBarMinX = statusBarMinX;
+    }
+
+    public int getStatusGreenBarMinX() {
+        return statusGreenBarMinX;
+    }
+
+    public void setStatusGreenBarMinX(int statusGreenBarMinX) {
+        this.statusGreenBarMinX = statusGreenBarMinX;
+    }
+
+    public int getStatusGreenBarMaxX() {
+        return statusGreenBarMaxX;
+    }
+
+    public void setStatusGreenBarMaxX(int statusGreenBarMaxX) {
+        this.statusGreenBarMaxX = statusGreenBarMaxX;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean isIncScore() {
+        return incScore;
+    }
+
+    public void setIncScore(boolean incScore) {
+        this.incScore = incScore;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
+    public boolean isStartTimer() {
+        return startTimer;
+    }
+
+    public void setStartTimer(boolean startTimer) {
+        this.startTimer = startTimer;
+    }
+
+    public int getHighscoreAbs() {
+        return highscoreAbs;
+    }
+
+    public void setHighscoreAbs(int highscoreAbs) {
+        this.highscoreAbs = highscoreAbs;
+    }
+
+    public boolean isSaveScores() {
+        return saveScores;
+    }
+
+    public void setSaveScores(boolean saveScores) {
+        this.saveScores = saveScores;
+    }
+
+    public int getTraceSpeed() {
+        return traceSpeed;
+    }
+
+    public void setTraceSpeed(int traceSpeed) {
+        this.traceSpeed = traceSpeed;
+    }
+
+    public int getDelta() {
+        return delta;
+    }
+
+    public void setDelta(int delta) {
+        this.delta = delta;
+    }
+
+    public boolean isLift() {
+        return lift;
+    }
+
+    public void setLift(boolean lift) {
+        this.lift = lift;
+    }
+
+    public boolean isGameStart() {
+        return gameStart;
+    }
+
+    public void setGameStart(boolean gameStart) {
+        this.gameStart = gameStart;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public boolean isTouched() {
+        return touched;
+    }
+
+    public void setTouched(boolean touched) {
+        this.touched = touched;
+    }
+
+    public FileHandle getFile() {
+        return file;
+    }
+
+    public void setFile(FileHandle file) {
+        this.file = file;
     }
 
 

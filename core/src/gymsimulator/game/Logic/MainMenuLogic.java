@@ -16,7 +16,7 @@ public class MainMenuLogic {
     private static final int TREADMILL = 2;
     private static final int ABS_CHALLENGE = 3;
     private static final int MULTIPLAYER_FIGHT = 4;
-    public int returnValue = 0;
+    private int returnValue = 0;
 
 
 
