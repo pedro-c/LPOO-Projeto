@@ -109,7 +109,7 @@ public class WeightLiftingState implements Screen  {
                 playButton.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        wtLogic.gameStart=true;
+                        wtLogic.setGameStart(true);
                     }
 
                 });
@@ -119,22 +119,23 @@ public class WeightLiftingState implements Screen  {
                 replayButton.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        wtLogic.lifted = false;
-                        wtLogic.leftArmSize=200;
-                        wtLogic.rightArmSize=200;
-                        wtLogic. weightRotation=0;
-                        wtLogic.changeBarDirection = 1;
-                        wtLogic.score = 0;
-                        wtLogic.incScore = false;
-                        wtLogic.timer=8*100;
-                        wtLogic.liftTimer = 150;
-                        wtLogic.startTimer= false;
-                        wtLogic.endGame=false;
-                        wtLogic.saveScores=true;
-                        wtLogic.trace_x = wtLogic.statusGreenBarMaxX - (wtLogic.statusGreenBarMaxX - wtLogic.statusGreenBarMinX)/2 ;
+                        wtLogic.setLifted(false);
+                        wtLogic.setLeftArmSize(200);
+                        wtLogic.setRightArmSize(200);
+                        wtLogic.setWeightRotation(0);
+                        wtLogic.setChangeBarDirection(1);
+                        wtLogic.setScore(0);
+                        wtLogic.setIncScore(false);
+                        wtLogic.setTimer(8000);
+                        wtLogic.setLiftTimer(150);
+                        wtLogic.setStartTimer(false);
+                        wtLogic.setEndGame(false);
+                        wtLogic.setSaveScores(true);
+                        wtLogic.setTrace_x(wtLogic.getStatusGreenBarMaxX() - (wtLogic.getStatusGreenBarMaxX() - wtLogic.getStatusGreenBarMinX())/2);
                         replayButton.setPosition(-500,-500);
                         imageBackToMenu.setPosition(-500,-500);
                         playButton.setPosition(-500,-500);
+
                     }
 
                 });
@@ -150,27 +151,27 @@ public class WeightLiftingState implements Screen  {
 
 
                 float deltaTime = Gdx.graphics.getDeltaTime();
-                hud.setLabelPlay("Timer: " + ((Integer) ((wtLogic.liftTimer))).toString() + " Score: " + ((Integer) wtLogic.score).toString() + "HighScore: " + ((Integer) wtLogic.highscoreLifting).toString());
+                hud.setLabelPlay("Timer: " + ((Integer) ((wtLogic.getLiftTimer()))).toString() + " Score: " + ((Integer) wtLogic.getScore()).toString() + "HighScore: " + ((Integer) wtLogic.getHighscoreLifting()).toString());
 
 
                 spriteBatch.begin();
                 spriteBatch.draw(background, 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
                 spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
-                spriteBatch.draw(trace, wtLogic.trace_x, wtLogic.trace_y, 20, 40);
+                spriteBatch.draw(trace, wtLogic.getTrace_x(), wtLogic.getTrace_y(), 20, 40);
 
                 //weight
-                spriteBatch.draw(weightRegion, Gdx.graphics.getWidth() / 2 - 400, 370, 400, 150, 800, 300, 1, 1, wtLogic.weightRotation / 3 + wtLogic.weightRotation);
+                spriteBatch.draw(weightRegion, Gdx.graphics.getWidth() / 2 - 400, 370, 400, 150, 800, 300, 1, 1, wtLogic.getWeightRotation() / 3 + wtLogic.getWeightRotation());
 
                 //Monkey
-                spriteBatch.draw(monkeyLarm, Gdx.graphics.getWidth() / 2 - 150, 400, 100, wtLogic.leftArmSize - wtLogic.weightRotation*2);
-                spriteBatch.draw(monkeyRarm, Gdx.graphics.getWidth() / 2 + 50, 400, 100, wtLogic.rightArmSize + wtLogic.weightRotation*2);
+                spriteBatch.draw(monkeyLarm, Gdx.graphics.getWidth() / 2 - 150, 400, 100, wtLogic.getLeftArmSize() - wtLogic.getWeightRotation()*2);
+                spriteBatch.draw(monkeyRarm, Gdx.graphics.getWidth() / 2 + 50, 400, 100, wtLogic.getRightArmSize() + wtLogic.getWeightRotation()*2);
                 spriteBatch.draw(monkey, Gdx.graphics.getWidth() / 2 - 300, 50, 600, 600);
 
-                if(wtLogic.gameStart==false){
+                if(wtLogic.isGameStart()==false){
                     playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                     spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
                 }
-                if(wtLogic.endGame==true ){
+                if(wtLogic.isEndGame()==true ){
                     replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
                     spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
                     imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);

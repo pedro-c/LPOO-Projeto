@@ -16,30 +16,30 @@ public class WeightLiftingLogic implements Input.TextInputListener {
 
     Preferences prefs;
 
-    public static final long[] loseVibratePattern = new long[] {0, 100, 30, 100};
-    public int trace_x;
-    public int trace_y;
-    public boolean endGame=false;
-    public int changeBarDirection;
-    public int statusBarMaxX;
-    public int statusBarMinX;
-    public int statusGreenBarMinX;
-    public int statusGreenBarMaxX;
-    public int score;
-    public boolean incScore;
-    public int timer;
-    public int liftTimer;
-    public boolean startTimer;
-    public int highscoreLifting = 0;
-    public float traceSpeed;
-    public double accInput;
-    public boolean lifted = false;
-    public int leftArmSize=200;
-    public int rightArmSize=200;
-    public float weightRotation=0;
-    public boolean gameStart=false;
-    public boolean saveScores=true;
-    public String userName="";
+    private static final long[] loseVibratePattern = new long[] {0, 100, 30, 100};
+    private int trace_x;
+    private int trace_y;
+    private boolean endGame=false;
+    private int changeBarDirection;
+    private int statusBarMaxX;
+    private int statusBarMinX;
+    private int statusGreenBarMinX;
+    private int statusGreenBarMaxX;
+    private int score;
+    private boolean incScore;
+    private int timer;
+    private int liftTimer;
+    private boolean startTimer;
+    private int highscoreLifting = 0;
+    private float traceSpeed;
+    private double accInput;
+    private boolean lifted = false;
+    private int leftArmSize=200;
+    private int rightArmSize=200;
+    private float weightRotation=0;
+    private boolean gameStart=false;
+    private boolean saveScores=true;
+    private String userName="";
     private FileHandle file;
 
 
@@ -207,6 +207,194 @@ public class WeightLiftingLogic implements Input.TextInputListener {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static long[] getLoseVibratePattern() {
+        return loseVibratePattern;
+    }
+
+    public int getTrace_x() {
+        return trace_x;
+    }
+
+    public void setTrace_x(int trace_x) {
+        this.trace_x = trace_x;
+    }
+
+    public int getTrace_y() {
+        return trace_y;
+    }
+
+    public void setTrace_y(int trace_y) {
+        this.trace_y = trace_y;
+    }
+
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
+    public int getChangeBarDirection() {
+        return changeBarDirection;
+    }
+
+    public void setChangeBarDirection(int changeBarDirection) {
+        this.changeBarDirection = changeBarDirection;
+    }
+
+    public int getStatusBarMaxX() {
+        return statusBarMaxX;
+    }
+
+    public void setStatusBarMaxX(int statusBarMaxX) {
+        this.statusBarMaxX = statusBarMaxX;
+    }
+
+    public int getStatusBarMinX() {
+        return statusBarMinX;
+    }
+
+    public void setStatusBarMinX(int statusBarMinX) {
+        this.statusBarMinX = statusBarMinX;
+    }
+
+    public int getStatusGreenBarMinX() {
+        return statusGreenBarMinX;
+    }
+
+    public void setStatusGreenBarMinX(int statusGreenBarMinX) {
+        this.statusGreenBarMinX = statusGreenBarMinX;
+    }
+
+    public int getStatusGreenBarMaxX() {
+        return statusGreenBarMaxX;
+    }
+
+    public void setStatusGreenBarMaxX(int statusGreenBarMaxX) {
+        this.statusGreenBarMaxX = statusGreenBarMaxX;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean isIncScore() {
+        return incScore;
+    }
+
+    public void setIncScore(boolean incScore) {
+        this.incScore = incScore;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
+    public int getLiftTimer() {
+        return liftTimer;
+    }
+
+    public void setLiftTimer(int liftTimer) {
+        this.liftTimer = liftTimer;
+    }
+
+    public boolean isStartTimer() {
+        return startTimer;
+    }
+
+    public void setStartTimer(boolean startTimer) {
+        this.startTimer = startTimer;
+    }
+
+    public int getHighscoreLifting() {
+        return highscoreLifting;
+    }
+
+    public void setHighscoreLifting(int highscoreLifting) {
+        this.highscoreLifting = highscoreLifting;
+    }
+
+    public float getTraceSpeed() {
+        return traceSpeed;
+    }
+
+    public void setTraceSpeed(float traceSpeed) {
+        this.traceSpeed = traceSpeed;
+    }
+
+    public double getAccInput() {
+        return accInput;
+    }
+
+    public void setAccInput(double accInput) {
+        this.accInput = accInput;
+    }
+
+    public boolean isLifted() {
+        return lifted;
+    }
+
+    public void setLifted(boolean lifted) {
+        this.lifted = lifted;
+    }
+
+    public int getLeftArmSize() {
+        return leftArmSize;
+    }
+
+    public void setLeftArmSize(int leftArmSize) {
+        this.leftArmSize = leftArmSize;
+    }
+
+    public int getRightArmSize() {
+        return rightArmSize;
+    }
+
+    public void setRightArmSize(int rightArmSize) {
+        this.rightArmSize = rightArmSize;
+    }
+
+    public float getWeightRotation() {
+        return weightRotation;
+    }
+
+    public void setWeightRotation(float weightRotation) {
+        this.weightRotation = weightRotation;
+    }
+
+    public boolean isGameStart() {
+        return gameStart;
+    }
+
+    public void setGameStart(boolean gameStart) {
+        this.gameStart = gameStart;
+    }
+
+    public boolean isSaveScores() {
+        return saveScores;
+    }
+
+    public void setSaveScores(boolean saveScores) {
+        this.saveScores = saveScores;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     
