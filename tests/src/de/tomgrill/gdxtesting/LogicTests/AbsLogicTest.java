@@ -40,7 +40,49 @@ public class AbsLogicTest {
 
         int speed = Case.calcTraceSpeed();
 
-        int exp =
+        int exp = 126;
+        Case.barMovement();
+        int act = Case.trace_x;
+
+        assertEquals(act, exp);
+
+    }
+
+    @Test
+    public void testHandleTouch(){
+        AbsLogic Case = new AbsLogic();
+
+        Case.score = 3;
+        Case.statusGreenBarMinX = 100;
+        Case.statusGreenBarMaxX = 200;
+        Case.trace_x = 120;
+        Case.incScore = true;
+        Case.timer = 100;
+
+        Case.handleTouch();
+
+        int exp = 4;
+        int act = Case.score;
+
+        assertEquals(act, exp);
+
+        exp = 150;
+        act = Case.timer;
+
+        assertEquals(act, exp);
+
+        Case.trace_x = 80;
+
+        Case.handleTouch();
+
+        exp = 3;
+        act = Case.score;
+
+        assertEquals(act, exp);
+
+
+
+
     }
 
 }
