@@ -45,10 +45,12 @@ public class AbsLogic{
 
     public int update(float dt) {
         delta++;
-        if(startTimer)
+        if(startTimer & !endGame)
             timer--;
-        if(timer <= 0)
+        if(timer <= 0){
             endGame=true;
+        }
+
         touched = Gdx.input.justTouched();
 
 
