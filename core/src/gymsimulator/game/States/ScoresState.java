@@ -56,14 +56,28 @@ public class ScoresState implements Screen {
         fontText = new BitmapFont();
         fontText.getData().setScale(3);
         String filename;
-        filename = "highscores.dat";
+        filename = "weightHighScores.txt";
         file = Gdx.files.local(filename);
-
         if(file.exists()){
             weightHighScore = file.readString();
-            absHighScore = file.readString();
-            treadHighScore = file.readString();
+        }else{
+            weightHighScore = " ";
         }
+        filename = "absHighScores.txt";
+        file = Gdx.files.local(filename);
+        if(file.exists()){
+            absHighScore = file.readString();
+        }else{
+            absHighScore  = " ";
+        }
+        filename = "treadHighScores.txt";
+        file = Gdx.files.local(filename);
+        if(file.exists()){
+            treadHighScore = file.readString();
+        }else{
+            treadHighScore = " ";
+        }
+
 
         //hud.setLabelPlay("Timer: " + ((Integer) ((absLogic.timer))).toString() + " Score: " + ((Integer) absLogic.score).toString() + "HighScore: " + ((Integer) absLogic.highscoreAbs).toString());
     }

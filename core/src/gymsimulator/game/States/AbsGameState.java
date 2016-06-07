@@ -1,6 +1,7 @@
 package gymsimulator.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,7 +19,7 @@ import gymsimulator.game.gymSimulator;
 /**
  * Created by pedro on 31/05/2016.
  */
-public class AbsGameState implements Screen {
+public class AbsGameState implements Screen{
 
     private Texture bar;
     private Texture trace;
@@ -42,6 +43,9 @@ public class AbsGameState implements Screen {
     public Stage stage;
     public AssetManager manager;
     public boolean loaded = false;
+    public boolean saveOnce = false;
+    public boolean listenerCreated=false;
+    Input.TextInputListener listener;
 
     public AbsGameState(gymSimulator game, AssetManager manager){
         this.manager=manager;
@@ -65,6 +69,13 @@ public class AbsGameState implements Screen {
 
     @Override
     public void render(float delta) {
+
+        if(absLogic.endGame==true){
+            if(saveOnce==false){
+                absLogic.saveToFile(absLogic.score);
+                saveOnce=true;
+            }
+        }
 
         Gdx.gl.glClearColor(0,(float)150/255,(float)136/255,0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -100,6 +111,8 @@ public class AbsGameState implements Screen {
             playButton = new Image(play);
             replayButton = new Image(replay);
 
+
+
             playButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
@@ -126,6 +139,10 @@ public class AbsGameState implements Screen {
                     absLogic.gameStart=true;
                     absLogic.endGame=false;
                     absLogic.saveScores=true;
+                    replayButton.setPosition(-500,-500);
+                    imageBackToMenu.setPosition(-500,-500);
+                    playButton.setPosition(-500,-500);
+                    saveOnce=false;
 
                 }
 
@@ -217,10 +234,13 @@ public class AbsGameState implements Screen {
 
     }
 
+
+
     @Override
     public void resize(int width, int height) {
 
     }
+
 
     @Override
     public void pause() {

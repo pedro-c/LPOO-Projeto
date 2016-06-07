@@ -13,12 +13,11 @@ import java.util.Random;
  */
 public class TreadmillLogic implements Input.TextInputListener  {
 
-    int rightScreen;
     public int score=0;
     public int startTimer=0;
     public int timer=1000;
     public boolean endGame=false;
-    public int highscoreTreadmill=0;
+    public int highscoreTreadmill;
     public boolean saveScores = true;
     Preferences prefs;
     public int foot1_x;
@@ -48,7 +47,6 @@ public class TreadmillLogic implements Input.TextInputListener  {
 
 
     public TreadmillLogic(){
-        rightScreen=0;
         prefs = Gdx.app.getPreferences("GymHighScores");
         highscoreTreadmill=prefs.getInteger("highscoreTreadmill");
 
@@ -183,14 +181,13 @@ public class TreadmillLogic implements Input.TextInputListener  {
 
 
         if (endGame==true) {
-            if (score > highscoreTreadmill && saveScores) {
-                Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
-                Gdx.app.debug(userName, userName);
+            if ((score > highscoreTreadmill) && saveScores) {
+                //Gdx.input.getTextInput(this, "Name", " ", "InsertYourName");
                 prefs.putInteger("highscoreTreadmill", score);
-                highscoreTreadmill=score;
                 prefs.flush();
+                saveToFile(score);
+                highscoreTreadmill=score;
                 saveScores=false;
-
             }
 
         }
@@ -203,31 +200,16 @@ public class TreadmillLogic implements Input.TextInputListener  {
     public void saveToFile(int score){
         if(score > highscoreTreadmill){
             String filename;
-            String weightHighScore;
-            String absHighScore;
-            String treadHighScore;
-            filename = "highscores.dat";
+            filename = "treadHighScores.txt";
             file = Gdx.files.local(filename);
 
             if(file.exists()){
-                weightHighScore = file.readString();
-                absHighScore = file.readString();
-                treadHighScore = file.readString();
-
-                file.writeString(java.lang.String.format("%s",weightHighScore), false);
-                file.writeString(java.lang.String.format("%s",absHighScore), false);
-                file.writeString(java.lang.String.format("%s",((Integer)(score)).toString())+ " - "+userName, false);
+                file.writeString(((Integer)(score)).toString(), false);
             }
             else {
                 try {
-                    weightHighScore = " ";
-                    absHighScore = " ";
-                    treadHighScore = " ";
                     file.file().createNewFile();
-                    file.writeString(java.lang.String.format("%s",weightHighScore), false);
-                    file.writeString(java.lang.String.format("%s",absHighScore), false);
-                    file.writeString(java.lang.String.format("%s",userName+((Integer)(score)).toString()), false);
-
+                    file.writeString(((Integer)(score)).toString(), false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,7 @@
 package gymsimulator.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -89,6 +90,8 @@ public class MultiplayerFight implements Screen{
 
     @Override
     public void render(float delta) {
+
+
 
         if(!loaded){
             hud.setLabelPlay("LOADING...");
