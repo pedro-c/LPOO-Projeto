@@ -306,153 +306,285 @@ public class WeightLiftingLogic  {
         this.changeBarDirection = changeBarDirection;
     }
 
+    /**
+     *
+     * @return StatusBar Max  X coordinate
+     */
+
     public int getStatusBarMaxX() {
         return statusBarMaxX;
     }
 
+    /**
+     *
+     * @param statusBarMaxX New StatusBar Max X coordinate
+     */
     public void setStatusBarMaxX(int statusBarMaxX) {
         this.statusBarMaxX = statusBarMaxX;
     }
 
+    /**
+     *
+     * @return StatusBar Min  X coordinate
+     */
     public int getStatusBarMinX() {
         return statusBarMinX;
     }
 
+    /**
+     *
+     * @param statusBarMinX New StatusBar Min X coordinate
+     */
     public void setStatusBarMinX(int statusBarMinX) {
         this.statusBarMinX = statusBarMinX;
     }
+
+    /**
+     *
+     * @return StatusBar Green part Min X Coordinate
+     */
 
     public int getStatusGreenBarMinX() {
         return statusGreenBarMinX;
     }
 
+    /**
+     *
+     * @param statusGreenBarMinX New StatusBar Green Part Min X coordinate
+     */
+
     public void setStatusGreenBarMinX(int statusGreenBarMinX) {
         this.statusGreenBarMinX = statusGreenBarMinX;
     }
+
+    /**
+     *
+     * @return StatusBar Green part Max X Coordinate
+     */
 
     public int getStatusGreenBarMaxX() {
         return statusGreenBarMaxX;
     }
 
+    /**
+     *
+     * @param statusGreenBarMaxX New StatusBar Green Part Max X coordinate
+     */
+
     public void setStatusGreenBarMaxX(int statusGreenBarMaxX) {
         this.statusGreenBarMaxX = statusGreenBarMaxX;
     }
+
+    /**
+     *
+     * @return Score
+     */
 
     public int getScore() {
         return score;
     }
 
+    /**
+     *
+     * @param score New Score
+     */
+
     public void setScore(int score) {
         this.score = score;
     }
+
+    /**
+     *
+     * @return Whether the score can be incremented
+     */
 
     public boolean isIncScore() {
         return incScore;
     }
 
+    /**
+     *
+     * @param incScore Whether the score can be incremented
+     */
+
     public void setIncScore(boolean incScore) {
         this.incScore = incScore;
     }
+
+    /**
+     *
+     * @return Game Timer
+     */
 
     public int getTimer() {
         return timer;
     }
 
+    /**
+     *
+     * @param timer New Game Timer
+     */
+
     public void setTimer(int timer) {
         this.timer = timer;
     }
+
+    /**
+     *
+     * @return Current liftTimer
+     */
 
     public int getLiftTimer() {
         return liftTimer;
     }
 
+    /**
+     *
+     * @param liftTimer New liftTimer
+     */
+
     public void setLiftTimer(int liftTimer) {
         this.liftTimer = liftTimer;
     }
+
+    /**
+     *
+     * @return Whether the timer should start to count
+     */
 
     public boolean isStartTimer() {
         return startTimer;
     }
 
+    /**
+     *
+      * @param startTimer Whether the timer should start to count
+     */
     public void setStartTimer(boolean startTimer) {
         this.startTimer = startTimer;
     }
+
+    /**
+     *
+     * @return Current Highscore
+     */
 
     public int getHighscoreLifting() {
         return highscoreLifting;
     }
 
+    /**
+     *
+     * @param highscoreLifting New Highscore
+     */
+
     public void setHighscoreLifting(int highscoreLifting) {
         this.highscoreLifting = highscoreLifting;
     }
+
+    /**
+     *
+     * @return Trace speed
+     */
 
     public float getTraceSpeed() {
         return traceSpeed;
     }
 
+    /**
+     *
+     * @param traceSpeed New trace speed
+     */
+
     public void setTraceSpeed(float traceSpeed) {
         this.traceSpeed = traceSpeed;
     }
+
+    /**
+     *
+     * @return Last Input from the accelerometer
+     */
 
     public double getAccInput() {
         return accInput;
     }
 
+    /**
+     *  Overides accelerometer input
+     * @param accInput New acceleration
+     */
+
     public void setAccInput(double accInput) {
         this.accInput = accInput;
     }
+
+    /**
+     *
+     * @return Whether or not the bar is lifted
+     */
 
     public boolean isLifted() {
         return lifted;
     }
 
+    /**
+     *
+     * @param lifted Whether or not the bar is lifted
+     */
+
     public void setLifted(boolean lifted) {
         this.lifted = lifted;
     }
 
-    public int getLeftArmSize() {
-        return leftArmSize;
-    }
-
-    public void setLeftArmSize(int leftArmSize) {
-        this.leftArmSize = leftArmSize;
-    }
-
-    public int getRightArmSize() {
-        return rightArmSize;
-    }
-
-    public void setRightArmSize(int rightArmSize) {
-        this.rightArmSize = rightArmSize;
-    }
-
-    public float getWeightRotation() {
-        return weightRotation;
-    }
-
-    public void setWeightRotation(float weightRotation) {
-        this.weightRotation = weightRotation;
-    }
+    /**
+     *
+     * @return Whether the game should start
+     */
 
     public boolean isGameStart() {
         return gameStart;
     }
 
+    /**
+     *
+     * @param gameStart Whether the game should start
+     */
+
     public void setGameStart(boolean gameStart) {
         this.gameStart = gameStart;
     }
+
+    /**
+     *
+     * @return Whether the scores are to be saved
+     */
 
     public boolean isSaveScores() {
         return saveScores;
     }
 
+    /**
+     *
+     * @param saveScores Whether the scores are to be saved
+     */
+
     public void setSaveScores(boolean saveScores) {
         this.saveScores = saveScores;
     }
 
+    /**
+     *
+     * @return User's name
+     */
+
     public String getUserName() {
         return userName;
     }
+
+    /**
+     *
+     * @param userName New User name
+     */
 
     public void setUserName(String userName) {
         this.userName = userName;

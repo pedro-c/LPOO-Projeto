@@ -79,7 +79,7 @@ public class AbsLogicTest {
         act = Case.getScore();
 
         assertEquals(act, exp);
-        
+
     }
 
 }
