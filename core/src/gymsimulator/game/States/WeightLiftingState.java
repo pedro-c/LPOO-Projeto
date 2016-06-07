@@ -70,7 +70,7 @@ public class WeightLiftingState implements Screen  {
     }
 
     public void update(float delta){
-        float flag=wtLogic.update(delta);
+        wtLogic.update(delta);
 
     }
 
