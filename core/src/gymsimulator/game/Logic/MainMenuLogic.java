@@ -30,7 +30,7 @@ public class MainMenuLogic {
         returnValue=0;
         if(Gdx.input.isTouched()){
             if((gamecam.position.x - gymSimulator.V_WIDTH/2) > 0 && (gamecam.position.x + gymSimulator.V_WIDTH/2) < 7680){
-                gamecam.position.x -= Gdx.input.getDeltaX()*dt*30;
+                gamecam.position.x -= Gdx.input.getDeltaX()*dt*50;
             }else if((gamecam.position.x - gymSimulator.V_WIDTH/2) <= 500){
                 gamecam.position.x = gymSimulator.V_WIDTH/2+250;
             }else if((gamecam.position.x + gymSimulator.V_WIDTH/2) >= 7680){
