@@ -34,7 +34,11 @@ public class WeightLiftingLogic  {
     private double accInput;
     private boolean lifted = false;
     private int leftArmSize=200;
+
     private int rightArmSize=200;
+
+
+
     private float weightRotation=0;
     private boolean gameStart=false;
     private boolean saveScores=true;
@@ -583,12 +587,64 @@ public class WeightLiftingLogic  {
 
     /**
      *
-     * @param userName New User name
+     * @param userName New User na
      */
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    
+    /**
+     *
+     * @return Size of right arm
+     */
+
+    public int getRightArmSize() {
+        return rightArmSize;
+    }
+
+    /**
+     *
+     * @param rightArmSize New right arm size
+     */
+
+    public void setRightArmSize(int rightArmSize) {
+        this.rightArmSize = rightArmSize;
+    }
+
+    /**
+     *
+     * @return Size of left arm
+     */
+
+    public int getLeftArmSize() {
+        return leftArmSize;
+    }
+
+    /**
+     *
+     * @param leftArmSize New left arm size
+     */
+
+    public void setLeftArmSize(int leftArmSize) {
+        this.leftArmSize = leftArmSize;
+    }
+
+    /**
+     *
+     * @return Rotation
+     */
+
+    public float getWeightRotation() {
+        return weightRotation;
+    }
+
+    /**
+     *
+     * @param weightRotation New rotation
+     */
+
+    public void setWeightRotation(float weightRotation) {
+        this.weightRotation = weightRotation;
+    }
 }
