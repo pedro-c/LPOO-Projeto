@@ -678,5 +678,40 @@ public class TreadmillLogic {
         this.startTimer = startTimer;
     }
 
+    /**
+     *
+     * @return Screen Height
+     */
+
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     *
+     * @param height New screen height value
+     */
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    /**
+     *
+     * @return Screen Width
+     */
+
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     *
+     * @param width New screen width value
+     */
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
 }
