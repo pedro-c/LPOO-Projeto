@@ -6,18 +6,18 @@ import static org.junit.Assert.assertFalse;
 
 
 import org.junit.Test;
-import gymsimulator.game.Logic.WeightLiftingLogic;
+import gymsimulator.game.Logic.WeightBalancingLogic;
 import org.junit.runner.RunWith;
 import com.badlogic.gdx.Gdx;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
 
-public class WeightLiftingLogicTest {
+public class WeightBalancingLogicTest {
 
     @Test
     public void testCalcAcceleration() {
-        WeightLiftingLogic Case = new WeightLiftingLogic();
+        WeightBalancingLogic Case = new WeightBalancingLogic();
 
         Case.setScore(9);
         Case.setAccInput(3);
@@ -41,7 +41,7 @@ public class WeightLiftingLogicTest {
 
     @Test
     public void testWait() {
-        WeightLiftingLogic Case = new WeightLiftingLogic();
+        WeightBalancingLogic Case = new WeightBalancingLogic();
         float delta = Gdx.graphics.getDeltaTime();
 
         Case.setTrace_x(1);
@@ -64,7 +64,7 @@ public class WeightLiftingLogicTest {
 
     @Test
     public void testLift() {
-        WeightLiftingLogic Case = new WeightLiftingLogic();
+        WeightBalancingLogic Case = new WeightBalancingLogic();
         float delta = Gdx.graphics.getDeltaTime();
 
 

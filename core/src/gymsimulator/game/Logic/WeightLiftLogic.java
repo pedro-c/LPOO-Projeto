@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by pedro on 31/05/2016.
  */
-public class AbsLogic{
+public class WeightLiftLogic {
 
     private int trace_x= (Gdx.graphics.getWidth()/2)-10;
     private int trace_y=Gdx.graphics.getHeight()-Gdx.graphics.getHeight()/6;
@@ -38,7 +38,7 @@ public class AbsLogic{
      * Constructor. Sets up variables
      */
 
-    public AbsLogic(){
+    public WeightLiftLogic(){
         endGame=false;
         prefs = Gdx.app.getPreferences("GymHighScores");
         highscoreAbs=prefs.getInteger("highscoreAbs");

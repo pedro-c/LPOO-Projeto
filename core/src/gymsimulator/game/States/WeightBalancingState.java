@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import gymsimulator.game.Logic.WeightLiftingLogic;
+import gymsimulator.game.Logic.WeightBalancingLogic;
 import gymsimulator.game.Scenes.Hud;
 import gymsimulator.game.gymSimulator;
 
@@ -21,11 +21,11 @@ import gymsimulator.game.gymSimulator;
  */
 
 
-public class WeightLiftingState implements Screen  {
+public class WeightBalancingState implements Screen  {
 
     private Hud hud;
 
-    WeightLiftingLogic wtLogic;
+    WeightBalancingLogic wtLogic;
 
     private Texture bar;
     private Texture trace;
@@ -49,7 +49,7 @@ public class WeightLiftingState implements Screen  {
     private boolean loaded=false;
 
 
-    public WeightLiftingState(gymSimulator game, AssetManager manager) {
+    public WeightBalancingState(gymSimulator game, AssetManager manager) {
         this.game=game;
         this.manager=manager;
         stage = new Stage();
@@ -57,7 +57,7 @@ public class WeightLiftingState implements Screen  {
 
         spriteBatch = new SpriteBatch();
 
-        wtLogic = new WeightLiftingLogic();
+        wtLogic = new WeightBalancingLogic();
 
         backToMenu = new Texture("backButton.png");
         imageBackToMenu = new Image(backToMenu);

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 /**
  * Created by pedro on 31/05/2016.
  */
-public class MultiplayerLogic {
+public class MultiplayerFightLogic {
 
     private int blueHealth= Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12;
     private int redHealth= Gdx.graphics.getHeight()-2*Gdx.graphics.getHeight()/12;
@@ -25,7 +25,7 @@ public class MultiplayerLogic {
     private int deltaSwitchFistR=0;
     private int deltaSwitchFistB=0;
 
-    public MultiplayerLogic(){
+    public MultiplayerFightLogic(){
 
     }
 

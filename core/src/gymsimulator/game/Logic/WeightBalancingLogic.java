@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Created by Tiago on 31/05/2016.
  */
-public class WeightLiftingLogic  {
+public class WeightBalancingLogic {
 
     Preferences prefs;
 
@@ -49,7 +49,7 @@ public class WeightLiftingLogic  {
      * Constructor. Sets up variables
      */
 
-    public WeightLiftingLogic()
+    public WeightBalancingLogic()
     {
         prefs = Gdx.app.getPreferences("GymHighScores");
         highscoreLifting = prefs.getInteger("highscoreWeight");

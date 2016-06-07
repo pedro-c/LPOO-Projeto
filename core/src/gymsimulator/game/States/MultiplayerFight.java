@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import gymsimulator.game.Logic.MultiplayerLogic;
+import gymsimulator.game.Logic.MultiplayerFightLogic;
 import gymsimulator.game.Scenes.Hud;
 import gymsimulator.game.gymSimulator;
 
@@ -23,7 +23,7 @@ public class MultiplayerFight implements Screen{
 
 
     private final gymSimulator game;
-    private MultiplayerLogic mpLogic;
+    private MultiplayerFightLogic mpLogic;
     private Texture fistR;
     private Texture fistB;
     private Texture shieldR;
@@ -74,7 +74,7 @@ public class MultiplayerFight implements Screen{
         this.manager=manager;
         hud = new Hud(game.batch);
         stage = new Stage();
-        mpLogic = new MultiplayerLogic();
+        mpLogic = new MultiplayerFightLogic();
         InputMultiplexer im = new InputMultiplexer();
         Gdx.input.setInputProcessor(im);
 

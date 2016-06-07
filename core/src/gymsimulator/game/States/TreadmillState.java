@@ -17,7 +17,7 @@ import gymsimulator.game.Logic.TreadmillLogic;
 import gymsimulator.game.Scenes.Hud;
 import gymsimulator.game.gymSimulator;
 
-public class RunnerGameState implements Screen {
+public class TreadmillState implements Screen {
 
     private static final int        FRAME_COLS = 4;
     private static final int        FRAME_ROWS = 1;
@@ -55,7 +55,7 @@ public class RunnerGameState implements Screen {
 
 
 
-    public RunnerGameState(gymSimulator game, AssetManager manager) {
+    public TreadmillState(gymSimulator game, AssetManager manager) {
         this.game=game;
         this.manager=manager;
         hud = new Hud(game.batch);

@@ -7,20 +7,20 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import gymsimulator.game.Logic.MultiplayerLogic;
-import gymsimulator.game.Logic.WeightLiftingLogic;
+import gymsimulator.game.Logic.MultiplayerFightLogic;
+
 import org.junit.runner.RunWith;
-import com.badlogic.gdx.Gdx;
+
 import de.tomgrill.gdxtesting.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
 
-public class MultiplayerLogicTest {
+public class MultiplayerFightLogicTest {
 
     @Test
     public void PlayerAttack()
     {
-        MultiplayerLogic Case = new MultiplayerLogic();
+        MultiplayerFightLogic Case = new MultiplayerFightLogic();
 
         Case.setBlueHealth(100);
         Case.setRedHealth(100);
@@ -48,7 +48,7 @@ public class MultiplayerLogicTest {
 
     @Test
     public void playerDefending(){
-        MultiplayerLogic Case = new MultiplayerLogic();
+        MultiplayerFightLogic Case = new MultiplayerFightLogic();
 
         Case.setPlayerRedStartDefend(true);
         Case.setDeltaRcounter(0);

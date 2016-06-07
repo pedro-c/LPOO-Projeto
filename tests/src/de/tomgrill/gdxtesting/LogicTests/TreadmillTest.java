@@ -8,9 +8,9 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 import gymsimulator.game.Logic.TreadmillLogic;
-import gymsimulator.game.Logic.WeightLiftingLogic;
+
 import org.junit.runner.RunWith;
-import com.badlogic.gdx.Gdx;
+
 import de.tomgrill.gdxtesting.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)

@@ -82,7 +82,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new WeightLiftingState(game, manager));
+                        game.setScreen(new WeightBalancingState(game, manager));
                         dispose();
                     }
 
@@ -93,7 +93,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new RunnerGameState(game, manager));
+                        game.setScreen(new TreadmillState(game, manager));
                         dispose();
                     }
 
@@ -104,7 +104,7 @@ public class MainMenu implements Screen {
                 hud.playSelectedGame.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y){
-                        game.setScreen(new AbsGameState(game, manager));
+                        game.setScreen(new WeightLiftState(game, manager));
                         dispose();
                 }
 

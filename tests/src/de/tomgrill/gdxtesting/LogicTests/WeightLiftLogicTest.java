@@ -7,19 +7,19 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import gymsimulator.game.Logic.AbsLogic;
-import gymsimulator.game.Logic.WeightLiftingLogic;
+import gymsimulator.game.Logic.WeightLiftLogic;
+
 import org.junit.runner.RunWith;
-import com.badlogic.gdx.Gdx;
+
 import de.tomgrill.gdxtesting.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
 
-public class AbsLogicTest {
+public class WeightLiftLogicTest {
 
     @Test
     public void testTraceSpeed(){
-        AbsLogic Case = new AbsLogic();
+        WeightLiftLogic Case = new WeightLiftLogic();
 
         Case.setScore(3);
         int exp = 26;
@@ -31,7 +31,7 @@ public class AbsLogicTest {
 
     @Test
     public void testBarMovement(){
-        AbsLogic Case = new AbsLogic();
+        WeightLiftLogic Case = new WeightLiftLogic();
 
         Case.setScore(3);
         Case.setStatusBarMinX(100);
@@ -50,7 +50,7 @@ public class AbsLogicTest {
 
     @Test
     public void testHandleTouch(){
-        AbsLogic Case = new AbsLogic();
+        WeightLiftLogic Case = new WeightLiftLogic();
 
         Case.setScore(3);
         Case.setStatusBarMinX(100);

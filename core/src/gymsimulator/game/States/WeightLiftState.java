@@ -12,20 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import gymsimulator.game.Logic.AbsLogic;
+import gymsimulator.game.Logic.WeightLiftLogic;
 import gymsimulator.game.Scenes.Hud;
 import gymsimulator.game.gymSimulator;
 
 /**
  * Created by pedro on 31/05/2016.
  */
-public class AbsGameState implements Screen{
+public class WeightLiftState implements Screen{
 
     private Texture bar;
     private Texture trace;
     private Hud hud;
     private SpriteBatch spriteBatch;
-    private AbsLogic absLogic;
+    private WeightLiftLogic weightLiftLogic;
     private Texture backToMenu;
     private Texture bro1;
     private Texture bro2;
@@ -47,21 +47,21 @@ public class AbsGameState implements Screen{
     public boolean listenerCreated=false;
     Input.TextInputListener listener;
 
-    public AbsGameState(gymSimulator game, AssetManager manager){
+    public WeightLiftState(gymSimulator game, AssetManager manager){
         this.manager=manager;
         this.game=game;
         stage = new Stage();
         hud = new Hud(game.batch);
 
         spriteBatch = new SpriteBatch();
-        absLogic = new AbsLogic();
+        weightLiftLogic = new WeightLiftLogic();
 
 
 
     }
 
     public void update(float dt){
-       absLogic.update(dt);
+       weightLiftLogic.update(dt);
         handleInput(dt);
 
 
@@ -70,9 +70,9 @@ public class AbsGameState implements Screen{
     @Override
     public void render(float delta) {
 
-        if(absLogic.isEndGame()==true){
+        if(weightLiftLogic.isEndGame()==true){
             if(saveOnce==false){
-                absLogic.saveToFile(absLogic.getScore());
+                weightLiftLogic.saveToFile(weightLiftLogic.getScore());
                 saveOnce=true;
             }
         }
@@ -116,8 +116,8 @@ public class AbsGameState implements Screen{
             playButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    absLogic.setGameStart(true);
-                    absLogic.setStartTimer(true);
+                    weightLiftLogic.setGameStart(true);
+                    weightLiftLogic.setStartTimer(true);
                 }
 
             });
@@ -127,17 +127,17 @@ public class AbsGameState implements Screen{
             replayButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    absLogic.setScore(0);
-                    absLogic.setIncScore(false);
-                    absLogic.setTimer(800);
-                    absLogic.setStartTimer(false);
-                    absLogic.setSaveScores(false);
-                    absLogic.setDelta(0);
-                    absLogic.setLift(false);
-                    absLogic.setStartTimer(true);
-                    absLogic.setGameStart(true);
-                    absLogic.setEndGame(false);
-                    absLogic.setSaveScores(true);
+                    weightLiftLogic.setScore(0);
+                    weightLiftLogic.setIncScore(false);
+                    weightLiftLogic.setTimer(800);
+                    weightLiftLogic.setStartTimer(false);
+                    weightLiftLogic.setSaveScores(false);
+                    weightLiftLogic.setDelta(0);
+                    weightLiftLogic.setLift(false);
+                    weightLiftLogic.setStartTimer(true);
+                    weightLiftLogic.setGameStart(true);
+                    weightLiftLogic.setEndGame(false);
+                    weightLiftLogic.setSaveScores(true);
                     replayButton.setPosition(-500,-500);
                     imageBackToMenu.setPosition(-500,-500);
                     playButton.setPosition(-500,-500);
@@ -155,47 +155,47 @@ public class AbsGameState implements Screen{
         }else {
             update(Gdx.graphics.getDeltaTime());
             float deltaTime = Gdx.graphics.getDeltaTime();
-            if (absLogic.isStartTimer() == true) {
-                absLogic.setTimer(absLogic.getTimer()-(int)deltaTime);
+            if (weightLiftLogic.isStartTimer() == true) {
+                weightLiftLogic.setTimer(weightLiftLogic.getTimer()-(int)deltaTime);
             }
 
 
-            hud.setLabelPlay("Timer: " + ((Integer) ((absLogic.getTimer()))).toString() + " Score: " + ((Integer) absLogic.getScore()).toString() + "HighScore: " + ((Integer) absLogic.getHighscoreAbs()).toString());
+            hud.setLabelPlay("Timer: " + ((Integer) ((weightLiftLogic.getTimer()))).toString() + " Score: " + ((Integer) weightLiftLogic.getScore()).toString() + "HighScore: " + ((Integer) weightLiftLogic.getHighscoreAbs()).toString());
 
 
             spriteBatch.begin();
             spriteBatch.draw(background, 0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             spriteBatch.draw(bar, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 6, Gdx.graphics.getWidth() / 2, 40);
-            spriteBatch.draw(trace, absLogic.getTrace_x(), absLogic.getTrace_y(), 20, 40);
+            spriteBatch.draw(trace, weightLiftLogic.getTrace_x(), weightLiftLogic.getTrace_y(), 20, 40);
             imageBackToMenu.setPosition(Gdx.graphics.getWidth() / 16, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 4);
 
-            if(absLogic.isLift()==false){
+            if(weightLiftLogic.isLift()==false){
                 spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
             }else{
-                if(absLogic.getDelta() < 5)
+                if(weightLiftLogic.getDelta() < 5)
                     spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 10)
+                else if(weightLiftLogic.getDelta() < 10)
                     spriteBatch.draw(bro2, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 15)
+                else if(weightLiftLogic.getDelta() < 15)
                     spriteBatch.draw(bro3, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 20)
+                else if(weightLiftLogic.getDelta() < 20)
                     spriteBatch.draw(bro4, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 25)
+                else if(weightLiftLogic.getDelta() < 25)
                     spriteBatch.draw(bro5, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 30)
+                else if(weightLiftLogic.getDelta() < 30)
                     spriteBatch.draw(bro6, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 35)
+                else if(weightLiftLogic.getDelta() < 35)
                     spriteBatch.draw(bro5, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() < 45)
+                else if(weightLiftLogic.getDelta() < 45)
                     spriteBatch.draw(bro2, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
-                else if(absLogic.getDelta() > 45)
+                else if(weightLiftLogic.getDelta() > 45)
                     spriteBatch.draw(bro1, Gdx.graphics.getWidth() / 2 - 300, 100 ,600, 600);
             }
-            if(absLogic.isGameStart()==false){
+            if(weightLiftLogic.isGameStart()==false){
                 playButton.setPosition(Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(play, Gdx.graphics.getWidth()/2-150, Gdx.graphics.getHeight()/2-150, 300, 300);
             }
-            if(absLogic.isEndGame()==true){
+            if(weightLiftLogic.isEndGame()==true){
                 replayButton.setPosition(Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150);
                 spriteBatch.draw(replay, Gdx.graphics.getWidth()/2-400, Gdx.graphics.getHeight()/2-150, 300, 300);
                 imageBackToMenu.setPosition(Gdx.graphics.getWidth()/2+100, Gdx.graphics.getHeight()/2-150);
