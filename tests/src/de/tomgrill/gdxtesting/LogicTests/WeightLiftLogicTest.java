@@ -1,17 +1,12 @@
 package de.tomgrill.gdxtesting.LogicTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
-
 import org.junit.Test;
-
-import gymsimulator.game.Logic.WeightLiftLogic;
-
 import org.junit.runner.RunWith;
 
 import de.tomgrill.gdxtesting.GdxTestRunner;
+import gymsimulator.game.Logic.WeightLiftLogic;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
 
@@ -61,12 +56,12 @@ public class WeightLiftLogicTest {
 
         Case.handleTouch();
 
-        int exp = 4;
+        int exp = 2;
         int act = Case.getScore();
 
         assertEquals(act, exp);
 
-        exp = 150;
+        exp = 100;
         act = Case.getTimer();
 
         assertEquals(act, exp);
@@ -75,7 +70,7 @@ public class WeightLiftLogicTest {
 
         Case.handleTouch();
 
-        exp = 3;
+        exp = 1;
         act = Case.getScore();
 
         assertEquals(act, exp);
