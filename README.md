@@ -26,8 +26,8 @@ Java game for Android devices using LibGDX framework.
 
 #####Fig. 5: Weigh Lifting Game
 ***
-![image](https://github.com/pedro-c/LPOO-Projeto/screenshots/9.png)
+![image](https://raw.githubusercontent.com/pedro-c/LPOO-Projeto/master/screenshots/9.png)
 
 #####Fig. 6: Multiplayer Fighting Game
 ***
-![image](https://github.com/pedro-c/LPOO-Projeto/screenshots/10.png)
+![image](https://raw.githubusercontent.com/pedro-c/LPOO-Projeto/master/screenshots/10.png)
